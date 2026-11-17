@@ -1,0 +1,153 @@
+{
+  "common": {
+    "name": "ecovacs-deebot2",
+    "version": "0.10.109",
+    "titleLang": {
+      "en": "Ecovacs Deebot 2",
+      "de": "Ecovacs Deebot 2"
+    },
+    "desc": {
+      "en": "Multi-robot Ecovacs adapter with one map and room model",
+      "de": "Mehrroboter-Ecovacs-Adapter mit einem gemeinsamen Karten- und Raummodell"
+    },
+    "authors": [
+      "Thomas H. (helfi9999)"
+    ],
+    "platform": "Javascript/Node.js",
+    "mode": "daemon",
+    "messagebox": true,
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/helfi9999/ioBroker.ecovacs-deebot2/main/admin/ecovacs-deebot2.png",
+    "readme": "https://github.com/helfi9999/ioBroker.ecovacs-deebot2/blob/main/README.md",
+    "loglevel": "info",
+    "connectionType": "cloud",
+    "dataSource": "push",
+    "tier": 2,
+    "compact": true,
+    "adminUI": {
+      "config": "json"
+    },
+    "type": "household",
+    "dependencies": [
+      {
+        "js-controller": ">=5.0.0"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=6.0.0"
+      }
+    ],
+    "icon": "ecovacs-deebot2.png",
+    "news": {
+      "0.10.108": {
+        "en": "Handle rejected MQTT disconnects without crashing the adapter; close remaining sockets and log robot-specific warnings.",
+        "de": "Abgewiesene MQTT-Abmeldungen ohne Adapterabsturz behandeln; verbleibende Verbindungen schließen und gerätebezogene Warnungen protokollieren."
+      },
+      "0.10.109": {
+        "en": "Prepare ioBroker package and startup tests, restore the cloud connection indicator and correct protected/encrypted configuration metadata.",
+        "de": "ioBroker-Paket- und Starttests vorbereiten, Cloud-Verbindungsanzeige wiederherstellen und Metadaten für geschützte/verschlüsselte Einstellungen korrigieren."
+      }
+    },
+    "licenseInformation": {
+      "type": "free",
+      "license": "GPL-3.0-only",
+      "link": "https://github.com/helfi9999/ioBroker.ecovacs-deebot2/blob/main/LICENSE"
+    }
+  },
+  "native": {
+    "username": "",
+    "password": "",
+    "country": "de",
+    "continent": "eu",
+    "deviceId": "",
+    "verificationCode": "",
+    "authUserId": "",
+    "authToken": "",
+    "pollIntervalSeconds": 60,
+    "roomNames": []
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Adapter information",
+          "de": "Adapterinformationen"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Ecovacs cloud connected",
+          "de": "Ecovacs-Cloud verbunden"
+        },
+        "type": "boolean",
+        "role": "indicator.connected",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "auth",
+      "type": "channel",
+      "common": {
+        "name": {
+          "de": "Anmeldung",
+          "en": "Authentication"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "auth.status",
+      "type": "state",
+      "common": {
+        "name": {
+          "de": "Anmeldestatus",
+          "en": "Authentication status"
+        },
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": false,
+        "def": "loggedOut"
+      },
+      "native": {}
+    },
+    {
+      "_id": "auth.message",
+      "type": "state",
+      "common": {
+        "name": {
+          "de": "Anmeldemeldung",
+          "en": "Authentication message"
+        },
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
+    }
+  ],
+  "encryptedNative": [
+    "password",
+    "verificationCode",
+    "authToken"
+  ],
+  "protectedNative": [
+    "password",
+    "verificationCode",
+    "authToken"
+  ]
+}

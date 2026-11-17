@@ -1,0 +1,65 @@
+{
+  "name": "iobroker.ecovacs-deebot2",
+  "version": "0.10.109",
+  "description": "Multi-robot Ecovacs adapter for ioBroker",
+  "main": "build/src/main.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "clean": "node -e \"require('fs').rmSync('build',{recursive:true,force:true})\"",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "test": "npm run build && node --test build/test/*.test.js",
+    "check": "npm test",
+    "pack:adapter": "npm run check && npm pack",
+    "test:package": "mocha test/package.cjs --timeout 60000",
+    "test:integration": "npm run build && mocha test/integration.cjs --timeout 600000",
+    "prepack": "npm run build"
+  },
+  "keywords": [
+    "ioBroker",
+    "ecovacs",
+    "deebot",
+    "vacuum",
+    "smart-home"
+  ],
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "@iobroker/adapter-core": "^3.3.2"
+  },
+  "optionalDependencies": {
+    "ecovacs-deebot": "0.9.6-beta.12"
+  },
+  "devDependencies": {
+    "@iobroker/testing": "^6.3.2",
+    "@types/node": "^24.0.0",
+    "mocha": "^11.8.0",
+    "typescript": "^5.9.2"
+  },
+  "files": [
+    "build",
+    "admin",
+    "io-package.json",
+    "LICENSE",
+    "README.md",
+    "src",
+    "test",
+    "tsconfig.json",
+    "docs",
+    "licenses",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "author": {
+    "name": "Thomas H.",
+    "url": "https://github.com/helfi9999"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helfi9999/ioBroker.ecovacs-deebot2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/helfi9999/ioBroker.ecovacs-deebot2/issues"
+  },
+  "homepage": "https://github.com/helfi9999/ioBroker.ecovacs-deebot2#readme"
+}

@@ -1,0 +1,90 @@
+{
+  "i18n": true,
+  "type": "panel",
+  "items": {
+    "username": {
+      "type": "text",
+      "label": { "de": "Ecovacs-Konto", "en": "Ecovacs account" },
+      "newLine": true,
+      "sm": 12,
+      "md": 6
+    },
+    "password": {
+      "type": "password",
+      "label": { "de": "Passwort", "en": "Password" },
+      "newLine": true,
+      "sm": 12,
+      "md": 6
+    },
+    "country": {
+      "type": "text",
+      "label": { "de": "Ländercode", "en": "Country code" },
+      "default": "de",
+      "newLine": true,
+      "sm": 6,
+      "md": 3
+    },
+    "continent": {
+      "type": "select",
+      "label": { "de": "Kontinent", "en": "Continent" },
+      "default": "eu",
+      "options": [
+        { "label": { "de": "Europa", "en": "Europe" }, "value": "eu" },
+        { "label": { "de": "Nordamerika", "en": "North America" }, "value": "na" },
+        { "label": { "de": "Asien", "en": "Asia" }, "value": "as" },
+        { "label": { "de": "Weltweit", "en": "Worldwide" }, "value": "ww" }
+      ],
+      "sm": 6,
+      "md": 3
+    },
+    "deviceId": {
+      "type": "text",
+      "label": { "de": "Stabile Client-ID (optional)", "en": "Stable client ID (optional)" },
+      "help": { "de": "Leer lassen, damit beim ersten Start automatisch eine dauerhafte ID erzeugt wird.", "en": "Leave empty to generate and persist one on first start." },
+      "newLine": true,
+      "sm": 12,
+      "md": 6
+    },
+    "verificationCode": {
+      "type": "text",
+      "label": { "de": "E-Mail-Verifizierungscode", "en": "E-mail verification code" },
+      "help": { "de": "Wenn auth.status den Wert verificationRequired hat, den von Ecovacs gesendeten Code eingeben, speichern und die Instanz neu starten.", "en": "When auth.status is verificationRequired, enter the code sent by Ecovacs, save and restart the instance." },
+      "newLine": true,
+      "sm": 12,
+      "md": 6
+    },
+    "pollIntervalSeconds": {
+      "type": "number",
+      "label": { "de": "Aktualisierungsintervall (Sekunden)", "en": "Refresh interval (seconds)" },
+      "default": 60,
+      "min": 15,
+      "max": 3600,
+      "newLine": true,
+      "sm": 6,
+      "md": 3
+    },
+    "_roomsHeader": {
+      "type": "header",
+      "text": { "de": "Raumnamen", "en": "Room names" },
+      "size": 3,
+      "newLine": true,
+      "sm": 12
+    },
+    "roomNames": {
+      "type": "table",
+      "label": { "de": "Erkannte Räume", "en": "Detected rooms" },
+      "noDelete": true,
+      "compact": true,
+      "showFirstAddOnTop": false,
+      "sm": 12,
+      "items": [
+        { "type": "text", "attr": "robot", "title": { "de": "Sauger", "en": "Robot" }, "width": "18%", "disabled": true },
+        { "type": "text", "attr": "floor", "title": { "de": "Etage/Karte", "en": "Floor/map" }, "width": "18%", "disabled": true },
+        { "type": "text", "attr": "roomId", "title": { "de": "Raum-ID", "en": "Room ID" }, "width": "12%", "disabled": true },
+        { "type": "text", "attr": "ecovacsName", "title": { "de": "Ecovacs-Name", "en": "Ecovacs name" }, "width": "22%", "disabled": true },
+        { "type": "text", "attr": "name", "title": { "de": "Anzeigename (änderbar)", "en": "Display name (editable)" }, "width": "30%" },
+        { "type": "text", "attr": "objectId", "title": "Object ID", "hidden": true }
+      ]
+    }
+  }
+}
