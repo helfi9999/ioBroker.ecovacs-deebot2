@@ -6,6 +6,7 @@
 
 import * as utils from "@iobroker/adapter-core";
 import { SessionManager, VerificationRequiredError } from "./auth/SessionManager";
+import { storeSessionCredentials } from "./auth/StoredSession";
 import { DeviceManager } from "./core/DeviceManager";
 import { EcovacsCloudSessionFactory, createStableDeviceId } from "./ecovacs/EcovacsCloudSession";
 import { EventBus } from "./events/EventBus";
@@ -128,12 +129,7 @@ class EcovacsDeebot2 extends utils.Adapter {
     const id = `system.adapter.${this.namespace}`;
     const object = await this.getForeignObjectAsync(id);
     if (!object || object.type !== "instance") return false;
-    object.native = {
-      ...object.native,
-      authUserId: credentials.userId,
-      authToken: credentials.token,
-      verificationCode: "",
-    };
+    object.native = storeSessionCredentials(object.native, credentials, value => this.encrypt(value));
     await this.setForeignObjectAsync(id, object);
     this.config.authUserId = credentials.userId;
     this.config.authToken = credentials.token;

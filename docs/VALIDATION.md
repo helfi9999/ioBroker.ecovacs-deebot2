@@ -35,3 +35,23 @@ Do not interpret this local result as approval for the Latest repository. See PU
   not a verified adapter dependency defect. No integration success is claimed.
 - GitHub API returned 404 for the proposed public repository. Public checker,
   GitHub Actions and npm publication are still pending.
+
+## Checker metadata corrections – 2026-11-17
+
+- Added common.keywords and raised the controller minimum to 5.0.19.
+- Added recommended translations for titleLang, desc and all existing news entries.
+- Declared common.nogit because the npm package contains compiled JavaScript
+  under build, while GitHub holds the TypeScript source. The public checker
+  supports this distribution mode. No missing entry point was substituted.
+- npm publication and Latest inclusion remain pending; the checker’s external
+  repository-list 404 cannot be repaired through this adapter’s metadata.
+
+## 0.10.110 – dependency hardening, 2026-11-17
+
+- Retained legacy sources; direct updated runtime dependencies and license/hash
+  provenance added. No dependency override is needed by the installed consumer.
+- Development npm audit: zero vulnerabilities.
+- Fresh packed consumer npm audit: zero vulnerabilities.
+- 50 behavior/protocol checks and 50 package checks passed locally.
+- Consumer tests exercise packaged files; controller startup and real robot
+  behavior on this version remain pending. See DEPENDENCY_SECURITY.md.

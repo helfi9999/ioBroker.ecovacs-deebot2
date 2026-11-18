@@ -23,11 +23,13 @@ Only data supplied by a model can be displayed. Station activity, cleaning phase
 
 ## Requirements and setup
 
-The current package requires Node.js 20 or later, js-controller 5 or later and Admin 6 or later. The prepared CI workflow targets Node.js 22 and 24.
+The current package requires Node.js 20 or later, js-controller 5.0.19 or later and Admin 6 or later. The prepared CI workflow targets Node.js 22 and 24.
 
 Configure the Ecovacs account, two-letter country code and continent in the instance settings. If `auth.status` reports `verificationRequired`, enter the Ecovacs e-mail code in the adapter settings and save. Keep the configured or automatically derived client ID unchanged after verification.
 
-The adapter communicates through the Ecovacs cloud using the `ecovacs-deebot` library. An internet connection and a working Ecovacs account are required.
+The adapter communicates through the Ecovacs cloud using an included, modified copy of the `ecovacs-deebot` 0.9.6-beta.12 protocol library. An internet connection and a working Ecovacs account are required.
+
+The release package contains compiled JavaScript. Direct GitHub installation is disabled with `common.nogit`; npm publication is required before ordinary installation through the ioBroker repositories.
 
 ## Objects and maps
 
@@ -68,6 +70,20 @@ See [publication preparation](docs/PUBLISHING.md) for the remaining release requ
 
 ## Changelog
 
+### 0.10.111
+
+- Encrypt session tokens before writing the instance object so controller decryption preserves the original token on restart.
+- Clarify that session initialization alone does not confirm device access.
+- For an affected existing installation, clear the cached session and re-enter the account password in Admin. This candidate still requires a real cloud login test.
+
+### 0.10.110
+
+- Retain legacy MQTT/XML and XMPP/XML support through included protocol sources with preserved licenses and documented local changes.
+- Replace vulnerable HTTP/XML/WebSocket dependencies with updated versions; replace request with the maintained Cypress fork.
+- Remove the unused native-canvas dependency; adapter maps continue to use the SVG renderer.
+- Verify dependencies in a fresh consumer installation and add protocol compatibility/security checks.
+
+
 ### 0.10.109
 
 - Restore the adapter-level cloud connection indicator required by ioBroker, alongside individual robot connections.
@@ -90,6 +106,15 @@ See [publication preparation](docs/PUBLISHING.md) for the remaining release requ
 - Project owner subsequently confirmed custom-area operation and history appear to work in practice.
 
 Earlier development versions introduced multi-robot control, map rendering, room and custom-area controls, multi-floor display and cloud-session recovery.
+
+## Dependency security
+
+See [dependency security checks](docs/DEPENDENCY_SECURITY.md) for the tested
+versions, audit results and remaining hardware/CI validation. `npm run
+test:security:all` checks the development dependency tree. This is an audit
+snapshot, not a guarantee that no vulnerabilities exist. The older protocol
+sources are locally maintained so that models such as DEEBOT 900 remain
+available for testing.
 
 ## License and acknowledgements
 

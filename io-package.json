@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "ecovacs-deebot2",
-    "version": "0.10.109",
+    "version": "0.10.112",
     "titleLang": {
       "en": "Ecovacs Deebot 2",
       "de": "Ecovacs Deebot 2",
@@ -58,6 +58,19 @@
     ],
     "icon": "ecovacs-deebot2.png",
     "news": {
+      "0.10.111": {
+        "en": "Encrypt persisted session tokens for controller restarts; clarify the initial session status.",
+        "de": "Gespeicherte Sitzungstokens für Controller-Neustarts verschlüsseln; anfänglichen Sitzungsstatus klarstellen.",
+        "ru": "Шифрование сохранённых токенов сеанса для перезапуска контроллера; уточнение начального статуса сеанса.",
+        "pt": "Encripta tokens de sessão guardados para reinícios do controlador e esclarece o estado inicial da sessão.",
+        "nl": "Versleutelt opgeslagen sessietokens voor controllerherstarts en verduidelijkt de initiële sessiestatus.",
+        "fr": "Chiffre les jetons de session enregistrés pour les redémarrages du contrôleur et clarifie le statut initial.",
+        "it": "Cifra i token di sessione salvati per i riavvii del controller e chiarisce lo stato iniziale della sessione.",
+        "es": "Cifra los tokens de sesión guardados para reinicios del controlador y aclara el estado inicial.",
+        "pl": "Szyfrowanie zapisanych tokenów sesji przy ponownym uruchomieniu kontrolera i doprecyzowanie stanu początkowego.",
+        "uk": "Шифрування збережених токенів сеансу для перезапуску контролера та уточнення початкового стану.",
+        "zh-cn": "加密保存的会话令牌以支持控制器重启，并明确初始会话状态。"
+      },
       "0.10.108": {
         "en": "Handle rejected MQTT disconnects without crashing the adapter; close remaining sockets and log robot-specific warnings.",
         "de": "Abgewiesene MQTT-Abmeldungen ohne Adapterabsturz behandeln; verbleibende Verbindungen schließen und gerätebezogene Warnungen protokollieren.",
@@ -83,6 +96,19 @@
         "pl": "Przygotowanie testów pakietu i uruchamiania ioBroker, przywrócenie wskaźnika połączenia z chmurą oraz poprawa metadanych chronionych i szyfrowanych ustawień.",
         "uk": "Підготовка тестів пакета й запуску ioBroker, відновлення індикатора хмарного з’єднання та виправлення метаданих захищених і зашифрованих налаштувань.",
         "zh-cn": "准备 ioBroker 软件包和启动测试，恢复云连接状态指示，并修正受保护及加密配置的元数据。"
+      },
+      "0.10.110": {
+        "en": "Update vulnerable dependencies while retaining legacy protocols; lock distributed dependencies and add protocol compatibility and security checks.",
+        "de": "Verwundbare Abhängigkeiten bei Erhalt der alten Protokolle aktualisieren; ausgelieferte Abhängigkeiten festlegen und Protokoll- sowie Sicherheitsprüfungen ergänzen.",
+        "ru": "Обновление уязвимых зависимостей с сохранением старых протоколов; фиксация поставляемых зависимостей и добавление проверок совместимости и безопасности.",
+        "pt": "Atualiza dependências vulneráveis mantendo os protocolos antigos; fixa as dependências distribuídas e adiciona verificações de compatibilidade e segurança.",
+        "nl": "Werkt kwetsbare afhankelijkheden bij met behoud van oudere protocollen; legt meegeleverde afhankelijkheden vast en voegt compatibiliteits- en beveiligingscontroles toe.",
+        "fr": "Met à jour les dépendances vulnérables en conservant les anciens protocoles ; verrouille les dépendances distribuées et ajoute des tests de compatibilité et de sécurité.",
+        "it": "Aggiorna le dipendenze vulnerabili mantenendo i protocolli precedenti; blocca le dipendenze distribuite e aggiunge controlli di compatibilità e sicurezza.",
+        "es": "Actualiza dependencias vulnerables conservando los protocolos antiguos; fija las dependencias distribuidas y añade pruebas de compatibilidad y seguridad.",
+        "pl": "Aktualizacja podatnych zależności z zachowaniem starszych protokołów; przypięcie dostarczanych zależności oraz dodanie testów zgodności i bezpieczeństwa.",
+        "uk": "Оновлення вразливих залежностей зі збереженням старих протоколів; фіксація залежностей і додавання перевірок сумісності та безпеки.",
+        "zh-cn": "保留旧协议并更新存在漏洞的依赖；锁定分发的依赖，增加协议兼容性和安全检查。"
       }
     },
     "licenseInformation": {
@@ -98,7 +124,8 @@
       "map",
       "room-cleaning"
     ],
-    "nogit": true
+    "nogit": true,
+    "installedFrom": "/tmp/iobroker.ecovacs-deebot2-0.10.111.tgz"
   },
   "native": {
     "username": "",

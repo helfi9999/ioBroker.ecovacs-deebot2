@@ -59,7 +59,7 @@ export class SessionManager {
         : undefined;
       await candidate.login(config.username.trim(), config.password, config.verificationCode?.trim(), cachedCredentials);
       this.session = candidate;
-      this.logger.info("Ecovacs cloud session established");
+      this.logger.info("Ecovacs session initialized; device access has not yet been confirmed");
     } catch (error) {
       await candidate.close().catch(() => undefined);
       if (error instanceof VerificationRequiredError) throw error;

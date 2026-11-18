@@ -43,13 +43,15 @@ included. Its icon is not included or referenced by this project anymore.
 ## ecovacs-deebot.js library
 
 Source: https://github.com/mrbungle64/ecovacs-deebot.js
-npm package: ecovacs-deebot, pinned version 0.9.6-beta.12.
+Included source base: ecovacs-deebot 0.9.6-beta.12 (locally modified).
 Copyright (c) 2025 Sascha Hölzel <mrb1232@posteo.de>, as stated in that
 version's README. Package metadata declares GPL-3.0; LICENSE.txt contains GPLv3.
 
-The adapter imports and calls this library directly, including its model
-catalogue. The dependency is installed separately by npm; its files and
-original notices must remain intact. This project does not relicense it as MIT.
+The adapter includes the required library sources under vendor/ecovacs-deebot,
+including the legacy protocols and model catalogue. Its original GPL text and
+notices are retained; this project does not relicense it as MIT. The changed
+imports, dependency metadata and disabled unused raster renderer are recorded
+in vendor/README.md and vendor/PROVENANCE.json.
 Protocol research is credited upstream to wpietri:
 https://github.com/wpietri/sucks/blob/master/protocol.md.
 
@@ -57,9 +59,27 @@ Other npm dependencies retain their own licenses and notices in their packages.
 This file is a targeted provenance record, not a certification of all
 transitive dependencies or rights in cloud-served content.
 
+## Included XMPP source and HTTP replacement
+
+simple-xmpp 2.3.1 is included under vendor/simple-xmpp, with its MIT notice:
+Copyright (c) 2011 Arunoda Susiripala. Source declared upstream:
+https://github.com/arunoda/node-simple-xmpp.
+
+node-xmpp-client 3.2.0 is included under vendor/node-xmpp-client. Its upstream
+package declares MIT; the archive supplies no standalone copyright notice.
+Its original metadata and source notices are retained, and the declared MIT
+terms are reproduced in vendor/node-xmpp-client/LICENSE. Repository declared
+upstream: https://github.com/node-xmpp/node-xmpp.
+
+The client uses @cypress/request 4.0.1 (Apache-2.0), the maintained request fork,
+installed by npm with its own original notices. Source:
+https://github.com/cypress-io/request. It replaces the unsupported request
+package in this adapter's BOSH implementation. These changes are local changes
+by this project, not releases endorsed by the original maintainers.
+
 ## Source availability and assets
 
-The npm package includes src, tests and tsconfig.json. The repository and
+The npm package includes src, tests, vendor and tsconfig.json. The repository and
 source archive also include package-lock.json; build with
 npm ci followed by npm run build from the complete repository. The prepared
 public source location is https://github.com/helfi9999/ioBroker.ecovacs-deebot2.

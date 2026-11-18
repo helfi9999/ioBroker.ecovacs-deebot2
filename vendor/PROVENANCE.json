@@ -1,0 +1,297 @@
+{
+  "upstreamVersions": {
+    "ecovacs-deebot": "0.9.6-beta.12",
+    "simple-xmpp": "2.3.1",
+    "node-xmpp-client": "3.2.0"
+  },
+  "files": [
+    {
+      "file": "ecovacs-deebot/LICENSE.txt",
+      "upstreamSha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+      "distributedSha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/README.md",
+      "upstreamSha256": "50aff9c554f0de1d15763a1a105696ae3ca490192bb52251849857c04e1738c0",
+      "distributedSha256": "50aff9c554f0de1d15763a1a105696ae3ca490192bb52251849857c04e1738c0",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/countries.json",
+      "upstreamSha256": "a6c3820e406535fd9c148997aa7ed230739a6ad8baa5ca53e61c9db638955358",
+      "distributedSha256": "a6c3820e406535fd9c148997aa7ed230739a6ad8baa5ca53e61c9db638955358",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/index.js",
+      "upstreamSha256": "886378af471383c959efb9de62904d85b87491f7daecb5f4a4886a4d7f478add",
+      "distributedSha256": "886378af471383c959efb9de62904d85b87491f7daecb5f4a4886a4d7f478add",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/key.pem",
+      "upstreamSha256": "fcff7e97df29e87a0d39be458cfc51d3e47caf4951a994821047688f6d416ae8",
+      "distributedSha256": "fcff7e97df29e87a0d39be458cfc51d3e47caf4951a994821047688f6d416ae8",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/950type/command.js",
+      "upstreamSha256": "ff971b0fabe2ed25a03e32ecfbaa400c5fa3c4d40d7833d4bef0c8d612c1aa36",
+      "distributedSha256": "ff971b0fabe2ed25a03e32ecfbaa400c5fa3c4d40d7833d4bef0c8d612c1aa36",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/950type/dictionary.js",
+      "upstreamSha256": "e0f4756c4db892a76ac3e8a93ab6fbd3d476587d46acae55b4d218e30649d8ac",
+      "distributedSha256": "e0f4756c4db892a76ac3e8a93ab6fbd3d476587d46acae55b4d218e30649d8ac",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/950type/ecovacsMQTT_JSON.js",
+      "upstreamSha256": "e3e982f90b19a5d80676f8193e3b643de5bfe2ba9665d8fcb2ea84b253f73dba",
+      "distributedSha256": "e3e982f90b19a5d80676f8193e3b643de5bfe2ba9665d8fcb2ea84b253f73dba",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/950type/vacBot.js",
+      "upstreamSha256": "d32189e1c053407dda251781a448f489f90b8099a1164480958204a4a41d633e",
+      "distributedSha256": "d32189e1c053407dda251781a448f489f90b8099a1164480958204a4a41d633e",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/950type_v2/vacBot.js",
+      "upstreamSha256": "cb0def23eb3782606755d7d3e27614203411f9c6fd9954a8a30f53adc2fd3112",
+      "distributedSha256": "cb0def23eb3782606755d7d3e27614203411f9c6fd9954a8a30f53adc2fd3112",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/constants.js",
+      "upstreamSha256": "0565c02cda63f118166a41871d2e1c8b15a799b64bbfbf81b19a248729b54c12",
+      "distributedSha256": "0565c02cda63f118166a41871d2e1c8b15a799b64bbfbf81b19a248729b54c12",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/ecovacs.js",
+      "upstreamSha256": "9c3a681b452bdad7b797db8d325b8667e39d5389031d8595b942d886628cf61c",
+      "distributedSha256": "9c3a681b452bdad7b797db8d325b8667e39d5389031d8595b942d886628cf61c",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/ecovacsMQTT.js",
+      "upstreamSha256": "d589ee34241fd1caddadb2bd77e71d33a9bac2aa9c3292943545070275b894bb",
+      "distributedSha256": "d589ee34241fd1caddadb2bd77e71d33a9bac2aa9c3292943545070275b894bb",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/errorCodes.json",
+      "upstreamSha256": "2c0f9605ecdf2a86db55466cf8243c36037f0dde6ab3f423292652637623e924",
+      "distributedSha256": "2c0f9605ecdf2a86db55466cf8243c36037f0dde6ab3f423292652637623e924",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/eventCodes.json",
+      "upstreamSha256": "961a4b6a60f107e583ac5cdd4c793c96d97f75a903d23596e34f42aad0fe2b97",
+      "distributedSha256": "961a4b6a60f107e583ac5cdd4c793c96d97f75a903d23596e34f42aad0fe2b97",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/i18n.js",
+      "upstreamSha256": "7ab4bcc89b02fc64922ac32e5ff4221b0cfd2206d3fb8d9f4a9222e00ea4588a",
+      "distributedSha256": "7ab4bcc89b02fc64922ac32e5ff4221b0cfd2206d3fb8d9f4a9222e00ea4588a",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/mapInfo.js",
+      "upstreamSha256": "5ef14a4d76149c1757f526fde7ecf240f9009e1a1d7efb0fecfdc1c82c59dab3",
+      "distributedSha256": "5ef14a4d76149c1757f526fde7ecf240f9009e1a1d7efb0fecfdc1c82c59dab3",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/mapTemplate.js",
+      "upstreamSha256": "2cd31cadbba346c915f1c6a07975a8e79f29a500e9ec53d14c832b355f95d120",
+      "distributedSha256": "2cd31cadbba346c915f1c6a07975a8e79f29a500e9ec53d14c832b355f95d120",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/mapTools.js",
+      "upstreamSha256": "43b720fa2041b073ce94c26a0352c1107669b571bad5e8081c0b6650d541482c",
+      "distributedSha256": "43b720fa2041b073ce94c26a0352c1107669b571bad5e8081c0b6650d541482c",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/models.js",
+      "upstreamSha256": "25b4ab29515934bf8de77583a33707d09f415feb040580a824d596a4ccf81e04",
+      "distributedSha256": "25b4ab29515934bf8de77583a33707d09f415feb040580a824d596a4ccf81e04",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/non950type/command.js",
+      "upstreamSha256": "e188e4cb381b2a386aa4bc3275b684faf5d466620fa9d0f67f88cf3250addd2d",
+      "distributedSha256": "e188e4cb381b2a386aa4bc3275b684faf5d466620fa9d0f67f88cf3250addd2d",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/non950type/dictionary.js",
+      "upstreamSha256": "479bf800b9c5ad86b35cc0c67226594db738b1336ce6ae6fb7e21173bb6eeb68",
+      "distributedSha256": "479bf800b9c5ad86b35cc0c67226594db738b1336ce6ae6fb7e21173bb6eeb68",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/non950type/ecovacsMQTT_XML.js",
+      "upstreamSha256": "6933dd797a9cfefa690ae2d4223490d1bdfc4dc60c67e3467c871da3b3df9641",
+      "distributedSha256": "6933dd797a9cfefa690ae2d4223490d1bdfc4dc60c67e3467c871da3b3df9641",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/non950type/ecovacsXMPP_XML.js",
+      "upstreamSha256": "960dbd5c49e83046980b42d3109bf70f1a27111e29d4a7556409eb1172146673",
+      "distributedSha256": "a0038d973b3b77edde03876d0e047950eb843180e2c8253e1abea265bccd19d5",
+      "changed": true
+    },
+    {
+      "file": "ecovacs-deebot/library/non950type/vacBot.js",
+      "upstreamSha256": "1bf918e04a2a20be7bf9672a431be4d8f5d7c672e1e9ee9e4eb31102db63183e",
+      "distributedSha256": "1bf918e04a2a20be7bf9672a431be4d8f5d7c672e1e9ee9e4eb31102db63183e",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/library/tools.js",
+      "upstreamSha256": "97e31912385b8f715b2c555e56fa126815512b19c905d24cf0264081dc6a11d0",
+      "distributedSha256": "124d90ad2b58724403ff7cf18ea449b1d20ed977bfefb0a61a4dab93fcedd1cf",
+      "changed": true
+    },
+    {
+      "file": "ecovacs-deebot/library/vacBot.js",
+      "upstreamSha256": "88b791a7fa41506d3997180b0f1ad59940154c0d6f284c445aad31236a0d92d1",
+      "distributedSha256": "88b791a7fa41506d3997180b0f1ad59940154c0d6f284c445aad31236a0d92d1",
+      "changed": false
+    },
+    {
+      "file": "ecovacs-deebot/package.json",
+      "upstreamSha256": "425f966bd2a5221363f900930ef2bcaa1bf5e6d354c932ffd16b9caf72f2ad27",
+      "distributedSha256": "33e90f46c08bbeba63ed6b507ce6d97fa9048d32034c2dde887f1e7893df9c82",
+      "changed": true
+    },
+    {
+      "file": "simple-xmpp/LICENSE",
+      "upstreamSha256": null,
+      "distributedSha256": "ddd8a8e0d0b10784e8cf88f28946142166cbc7fb14ea135f6705c00d99907c5c",
+      "changed": true
+    },
+    {
+      "file": "simple-xmpp/lib/simple-xmpp.js",
+      "upstreamSha256": "60010828b908c1514f8382326620383a6407a8927d7434736feda8a6f1c36374",
+      "distributedSha256": "32811cd20b0032497a27983ecfcaadb9af784c1685eae9f22bebbcaf8a3ff2e9",
+      "changed": true
+    },
+    {
+      "file": "simple-xmpp/package.json",
+      "upstreamSha256": "51c6d0b5edb3548c888638b11c6a73bce9133ca175b41a160383f44629223197",
+      "distributedSha256": "7fd0c5169a83da86545c19a943c060c261ed98f28e34d4b51e00fb6f2c6b29db",
+      "changed": true
+    },
+    {
+      "file": "simple-xmpp/readme.md",
+      "upstreamSha256": "7b6117b561ff63dba2e519ee2c49eb557a84f68f79280841b28a8aa1e8da8f1b",
+      "distributedSha256": "7b6117b561ff63dba2e519ee2c49eb557a84f68f79280841b28a8aa1e8da8f1b",
+      "changed": false
+    },
+    {
+      "file": "node-xmpp-client/LICENSE",
+      "upstreamSha256": null,
+      "distributedSha256": "6515113a619e16731b1cea9a94cf8299466d3791700784d9bbb07465d24720ac",
+      "changed": true
+    },
+    {
+      "file": "node-xmpp-client/README.md",
+      "upstreamSha256": "8cd2a32441182f8a2f7e4970f17288ed8e8818247e2f7725a56608dc8b57e4e2",
+      "distributedSha256": "8cd2a32441182f8a2f7e4970f17288ed8e8818247e2f7725a56608dc8b57e4e2",
+      "changed": false
+    },
+    {
+      "file": "node-xmpp-client/index.js",
+      "upstreamSha256": "d25b1dea88a72e3eb3c039e83ad5180cea411a7f9a60d722e50280e592ecfb89",
+      "distributedSha256": "d25b1dea88a72e3eb3c039e83ad5180cea411a7f9a60d722e50280e592ecfb89",
+      "changed": false
+    },
+    {
+      "file": "node-xmpp-client/lib/Client.js",
+      "upstreamSha256": "4db60de9d2ee7e089ab2664adc86bd1e46e1d722cd09ce63a8bb73e6121a520f",
+      "distributedSha256": "4db60de9d2ee7e089ab2664adc86bd1e46e1d722cd09ce63a8bb73e6121a520f",
+      "changed": false
+    },
+    {
+      "file": "node-xmpp-client/lib/authentication/anonymous.js",
+      "upstreamSha256": "f6a272bd0aace2cdc83064d62e3ee3f9c07e6d10b610416492bb1994cb65dc04",
+      "distributedSha256": "f6a272bd0aace2cdc83064d62e3ee3f9c07e6d10b610416492bb1994cb65dc04",
+      "changed": false
+    },
+    {
+      "file": "node-xmpp-client/lib/authentication/digestmd5.js",
+      "upstreamSha256": "6753a74a788e3b18b4ea1b387c8e74e5ad7aa7d347e81deb8a3a31f94a5b21d4",
+      "distributedSha256": "6753a74a788e3b18b4ea1b387c8e74e5ad7aa7d347e81deb8a3a31f94a5b21d4",
+      "changed": false
+    },
+    {
+      "file": "node-xmpp-client/lib/authentication/external.js",
+      "upstreamSha256": "4ad4e25d596d5aff391275d4cb99163539422390ea589f0a0199ade99ec507fd",
+      "distributedSha256": "4ad4e25d596d5aff391275d4cb99163539422390ea589f0a0199ade99ec507fd",
+      "changed": false
+    },
+    {
+      "file": "node-xmpp-client/lib/authentication/mechanism.js",
+      "upstreamSha256": "287c46cfced8e04e48716768481a8f8e4ae2584ed1c1fe38578defdcfb2d7548",
+      "distributedSha256": "287c46cfced8e04e48716768481a8f8e4ae2584ed1c1fe38578defdcfb2d7548",
+      "changed": false
+    },
+    {
+      "file": "node-xmpp-client/lib/authentication/plain.js",
+      "upstreamSha256": "baa8dd3de547c73034b8b4ba875dd7c97f9434e5b60774f957c73fef31a723d4",
+      "distributedSha256": "baa8dd3de547c73034b8b4ba875dd7c97f9434e5b60774f957c73fef31a723d4",
+      "changed": false
+    },
+    {
+      "file": "node-xmpp-client/lib/authentication/xoauth2.js",
+      "upstreamSha256": "68438b29c2e026365b2dcfec14bc139a3bf1755a54301c0e3370a9ef46f12d7c",
+      "distributedSha256": "68438b29c2e026365b2dcfec14bc139a3bf1755a54301c0e3370a9ef46f12d7c",
+      "changed": false
+    },
+    {
+      "file": "node-xmpp-client/lib/bosh.js",
+      "upstreamSha256": "ca4bef56e6a883eae5d38bc3a783fed0a91122e3102d8a0c2ee1326bf507a959",
+      "distributedSha256": "ebd597f61b0a1c63bb948da516372d59165962d30ef5672ef8276faa40ac5f9c",
+      "changed": true
+    },
+    {
+      "file": "node-xmpp-client/lib/prebind.js",
+      "upstreamSha256": "b861ecf32fc99789d1484fc91f10b74f6f938b5f815aa48156afd3ee4a8a2b77",
+      "distributedSha256": "b861ecf32fc99789d1484fc91f10b74f6f938b5f815aa48156afd3ee4a8a2b77",
+      "changed": false
+    },
+    {
+      "file": "node-xmpp-client/lib/sasl.js",
+      "upstreamSha256": "6646c80d6faaf9e9078fdfdc16bb002c2ee50a675ecce7e23a28dc00420fc3ee",
+      "distributedSha256": "6646c80d6faaf9e9078fdfdc16bb002c2ee50a675ecce7e23a28dc00420fc3ee",
+      "changed": false
+    },
+    {
+      "file": "node-xmpp-client/lib/session.js",
+      "upstreamSha256": "60113b9067be297f4d0a7f0cc6c14481c3b53ee624c676112e464dc13e9f0dcd",
+      "distributedSha256": "60113b9067be297f4d0a7f0cc6c14481c3b53ee624c676112e464dc13e9f0dcd",
+      "changed": false
+    },
+    {
+      "file": "node-xmpp-client/lib/websockets.js",
+      "upstreamSha256": "3588fbee9526f52116dfcc6537ca349b0dfd9da85ac0d50604800dd30446a20d",
+      "distributedSha256": "3588fbee9526f52116dfcc6537ca349b0dfd9da85ac0d50604800dd30446a20d",
+      "changed": false
+    },
+    {
+      "file": "node-xmpp-client/package.json",
+      "upstreamSha256": "378df71cdf624ecf4c7300803965355fda7f07daabdac914955065752bf76eff",
+      "distributedSha256": "5c40128d37f6127c90d14f977a7d2b69b5e1ded486cb013f8b2baa9e64c9be06",
+      "changed": true
+    }
+  ]
+}

@@ -8,6 +8,18 @@ const { tests } = require("@iobroker/testing");
 tests.integration(path.join(__dirname, ".."), {
     controllerVersion: "latest",
     defineAdditionalTests({ suite }) {
+        suite("Legacy and modern transport availability", () => {
+            it("constructs DEEBOT 900 and T30 transports from the distributed library", () => {
+                const { EcoVacsAPI } = require("../vendor/ecovacs-deebot");
+                const api = new EcoVacsAPI("compatibility-test", "de", "eu");
+                api.uid = "test-user";
+                api.user_access_token = "dummy-token";
+                const legacy = api.getVacBotObj({ did: "test-legacy", class: "ls1ok3", company: "eco-ng", resource: "atom" });
+                const modern = api.getVacBotObj({ did: "test-modern", class: "z4lvk7", company: "eco-ng", resource: "atom" });
+                assert.equal(legacy.is950type(), false);
+                assert.equal(modern.is950type(), true);
+            });
+        });
         suite("Startup without credentials", getHarness => {
             it("stays running, reports disconnected and waits for configuration", async () => {
                 const harness = getHarness();

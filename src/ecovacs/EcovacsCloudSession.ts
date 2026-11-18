@@ -5,7 +5,7 @@
  */
 
 import { constants as cryptoConstants, createHash, createPublicKey, publicEncrypt } from "node:crypto";
-import { dirname, join } from "node:path";
+import { join } from "node:path";
 import { VerificationRequiredError } from "../auth/SessionManager";
 import type { CloudCredentials, CloudSession, CloudSessionFactory, Point, RobotCapabilities, RobotCommand, RobotDescriptor, RobotMapSourceUpdate, RobotSettingName, RobotTelemetryValue, RobotTransport } from "../domain/types";
 
@@ -16,6 +16,8 @@ interface VacBotLike {
   ecovacs?: {
     handleMessage?: (topic: string, payload: unknown, type?: string) => void;
     disconnect?: () => unknown;
+    on?: (event: string, listener: () => void) => void;
+    removeListener?: (event: string, listener: () => void) => void;
     client?: { end(force?: boolean): unknown };
   };
   deviceImageURL?: string;
@@ -39,6 +41,7 @@ interface VacBotLike {
   hasRoundMopInfo?: () => boolean;
   hasAutoEmptyStation?: () => boolean;
   is950type?: () => boolean;
+  getProtocol?: () => string;
 }
 
 interface EcoVacsApiLike {
@@ -351,7 +354,94 @@ export class VacBotTransport implements RobotTransport {
     this.listen("StationState", value => { this.handleStationTelemetry(value); this.emitStatus(value, "station"); });
   }
 
-  async connect(): Promise<void> { await this.vacbot.connect?.(); }
+  async connect(): Promise<void> {
+    const protocol = this.vacbot.ecovacs;
+    if (!protocol?.on || !protocol.removeListener || !this.vacbot.connect) {
+      throw new Error("Ecovacs connection events are unavailable");
+    }
+
+    const on = protocol.on.bind(protocol);
+    const removeListener = protocol.removeListener.bind(protocol);
+    const startConnection = this.vacbot.connect.bind(this.vacbot);
+
+    try {
+      await new Promise<void>((resolve, reject) => {
+      let finished = false;
+
+      const cleanup = () => {
+        clearTimeout(timeout);
+        removeListener("ready", onReady);
+        removeListener("closed", onClosed);
+      };
+
+      const finish = (error?: Error) => {
+        if (finished) return;
+        finished = true;
+        cleanup();
+        if (error) reject(error);
+        else resolve();
+      };
+
+      const onReady = () => finish();
+      const onClosed = () =>
+        finish(new Error("Ecovacs connection closed before ready"));
+
+      const timeout = setTimeout(
+        () => finish(new Error("Ecovacs connection timeout after 30 seconds")),
+        30000,
+      );
+
+      on("ready", onReady);
+      on("closed", onClosed);
+
+      try {
+        Promise.resolve(startConnection()).catch(error =>
+          finish(error instanceof Error ? error : new Error(String(error))),
+        );
+      } catch (error) {
+        finish(error instanceof Error ? error : new Error(String(error)));
+      }
+      });
+    } catch (error) {
+      let cleanupTimer: NodeJS.Timeout | undefined;
+      let cleanupTimedOut = false;
+
+      try {
+        await Promise.race([
+          this.disconnect(),
+          new Promise<void>((resolve) => {
+            cleanupTimer = setTimeout(() => {
+              cleanupTimedOut = true;
+              resolve();
+            }, 5000);
+          }),
+        ]);
+
+        if (cleanupTimedOut) {
+          this.warn("Ecovacs connection cleanup timed out after 5 seconds");
+
+          const protocol = this.vacbot.getProtocol?.();
+          if (protocol === "MQTT" || this.vacbot.is950type?.()) {
+            try {
+              this.vacbot.ecovacs?.client?.end(true);
+            } catch (closeError) {
+              this.warn(
+                `Ecovacs MQTT forced close failed: ${String(closeError)}`,
+              );
+            }
+          }
+        }
+      } catch (disconnectError) {
+        this.warn(
+          `Ecovacs connection cleanup failed: ${String(disconnectError)}`,
+        );
+      } finally {
+        if (cleanupTimer) clearTimeout(cleanupTimer);
+      }
+
+      throw error;
+    }
+  }
 
   private guardProtocolDisconnect(): void {
     const protocol = this.vacbot.ecovacs;
@@ -817,7 +907,7 @@ export class EcovacsCloudSession implements CloudSession {
     }
 
     this.credentials = { userId: credentials.userId, token: credentials.token };
-    const module = require("ecovacs-deebot") as EcoVacsModule;
+    const module = require(join(__dirname, "../../../vendor/ecovacs-deebot")) as EcoVacsModule;
     this.api = new module.EcoVacsAPI(this.options.deviceId, this.options.country, this.options.continent);
     this.api.uid = credentials.userId;
     this.api.user_access_token = credentials.token;
@@ -879,7 +969,7 @@ export class EcovacsCloudSession implements CloudSession {
 
 export function resolveEcovacsModelName(deviceClass: string, fallback: string): string {
   try {
-    const modelsPath = join(dirname(require.resolve("ecovacs-deebot")), "library", "models.js");
+    const modelsPath = join(__dirname, "../../../vendor/ecovacs-deebot/library/models.js");
     const models = require(modelsPath) as {
       KnownDevices?: Record<string, { name?: string }>;
       SupportedDevices?: Record<string, { name?: string }>;
