@@ -124,8 +124,7 @@
       "map",
       "room-cleaning"
     ],
-    "nogit": true,
-    "installedFrom": "/tmp/iobroker.ecovacs-deebot2-0.10.111.tgz"
+    "nogit": true
   },
   "native": {
     "username": "",
