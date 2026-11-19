@@ -70,12 +70,12 @@ See [publication preparation](docs/PUBLISHING.md) for the remaining release requ
 
 ## Changelog
 
-### 0.10.113 (planned)
+### **WORK IN PROGRESS**
 
 - Correct the ioBroker news history to list published versions only.
 - Use compatible SemVer ranges for 14 runtime dependencies.
 - Update release and dependency-security documentation.
-- Verify 60 adapter tests, 50 package checks and a clean npm audit.
+- Verify 62 adapter tests, 61 package checks and a clean npm audit.
 
 
 ### 0.10.112
