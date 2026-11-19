@@ -1,6 +1,6 @@
 'use strict'
 
-var EventEmitter = require('events').EventEmitter
+var EventEmitter = require('node:events').EventEmitter
 var core = require('node-xmpp-core')
 var inherits = core.inherits
 var ltx = core.ltx

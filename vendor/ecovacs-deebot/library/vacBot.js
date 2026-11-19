@@ -5,7 +5,7 @@ const i18n = require('./i18n');
 const map = require('./mapInfo');
 const {errorCodes} = require('./errorCodes.json');
 const constants = require("./constants");
-const crypto = require("crypto");
+const crypto = require("node:crypto");
 const querystring = require("node:querystring");
 const axios = require('axios').default;
 
@@ -1228,7 +1228,7 @@ class VacBot {
                 responseType: 'arraybuffer'
             });
             const result = res.data;
-            const fs = require('fs');
+            const fs = require('node:fs');
             fs.writeFile(targetFilename, result, err => {
                 if (err) {
                     tools.envLogInfo(`[EcoVacsAPI] downloadSecuredContent error: ${err}`);

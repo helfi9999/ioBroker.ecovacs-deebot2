@@ -26,7 +26,7 @@
 
 var xmpp = require('../../node-xmpp-client');
 var Stanza = xmpp.Stanza; // http://node-xmpp.org/doc/ltx.html
-var EventEmitter = require('events').EventEmitter;
+var EventEmitter = require('node:events').EventEmitter;
 var qbox = require('qbox');
 
 var STATUS = {

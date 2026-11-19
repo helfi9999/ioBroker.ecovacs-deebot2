@@ -10,7 +10,7 @@
  */
 
 var inherits = require('node-xmpp-core').inherits
-var EventEmitter = require('events').EventEmitter
+var EventEmitter = require('node:events').EventEmitter
 
 // Mechanisms
 function Mechanism () {}

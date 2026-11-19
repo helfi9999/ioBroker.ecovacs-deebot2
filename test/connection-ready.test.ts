@@ -2,8 +2,12 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { EventEmitter } from "node:events";
 import { VacBotTransport } from "../src/ecovacs/EcovacsCloudSession";
+import { testTimerService } from "./TimerService";
 
-function createTransport(connect: () => void) {
+function createTransport(connect: () => void): {
+  transport: VacBotTransport;
+  protocol: EventEmitter;
+} {
   const protocol = new EventEmitter();
 
   const vacbot = {
@@ -11,13 +15,12 @@ function createTransport(connect: () => void) {
     connect,
   };
 
-  const transport = Object.create(
-    VacBotTransport.prototype,
-  ) as VacBotTransport;
+  const transport = Object.create(VacBotTransport.prototype) as VacBotTransport;
 
   Object.assign(transport, {
     vacbot,
     warn: () => {},
+    timers: testTimerService,
     handlers: [],
     mapRetryTimers: new Set(),
     stopPositionPolling: () => {},
@@ -26,7 +29,7 @@ function createTransport(connect: () => void) {
   return { transport, protocol };
 }
 
-test("connection waits for ready", async () => {
+void test("connection waits for ready", async () => {
   let resolved = false;
   const { transport, protocol } = createTransport(() => {});
 
@@ -45,7 +48,7 @@ test("connection waits for ready", async () => {
   assert.equal(protocol.listenerCount("closed"), 0);
 });
 
-test("connection rejects when closed before ready", async () => {
+void test("connection rejects when closed before ready", async () => {
   const { transport, protocol } = createTransport(() => {});
 
   const pending = transport.connect();
@@ -57,21 +60,18 @@ test("connection rejects when closed before ready", async () => {
   assert.equal(protocol.listenerCount("closed"), 0);
 });
 
-test("connection rejects synchronous errors", async () => {
+void test("connection rejects synchronous errors", async () => {
   const { transport, protocol } = createTransport(() => {
     throw new Error("Connection failed");
   });
 
-  await assert.rejects(
-    transport.connect(),
-    /Connection failed/,
-  );
+  await assert.rejects(transport.connect(), /Connection failed/);
 
   assert.equal(protocol.listenerCount("ready"), 0);
   assert.equal(protocol.listenerCount("closed"), 0);
 });
 
-test("connection times out without ready", async () => {
+void test("connection times out without ready", async () => {
   const { transport, protocol } = createTransport(() => {});
 
   await assert.rejects(
@@ -83,7 +83,7 @@ test("connection times out without ready", async () => {
   assert.equal(protocol.listenerCount("closed"), 0);
 });
 
-test("connection failure disconnects the robot", async () => {
+void test("connection failure disconnects the robot", async () => {
   const { transport, protocol } = createTransport(() => {});
   let disconnectCount = 0;
 
@@ -91,8 +91,9 @@ test("connection failure disconnects the robot", async () => {
     vacbot: {
       ecovacs: protocol,
       connect: () => {},
-      disconnectAsync: async () => {
+      disconnectAsync: (): Promise<void> => {
         disconnectCount++;
+        return Promise.resolve();
       },
     },
   });
@@ -107,7 +108,7 @@ test("connection failure disconnects the robot", async () => {
   assert.equal(protocol.listenerCount("closed"), 0);
 });
 
-test("MQTT cleanup timeout forces socket closure", async () => {
+void test("MQTT cleanup timeout forces socket closure", async () => {
   const { transport, protocol } = createTransport(() => {});
   let forcedClose = false;
 
@@ -136,7 +137,7 @@ test("MQTT cleanup timeout forces socket closure", async () => {
   assert.equal(protocol.listenerCount("closed"), 0);
 });
 
-test("XMPP cleanup does not force MQTT socket closure", async () => {
+void test("XMPP cleanup does not force MQTT socket closure", async () => {
   const { transport, protocol } = createTransport(() => {});
   let forcedClose = false;
 
@@ -165,7 +166,7 @@ test("XMPP cleanup does not force MQTT socket closure", async () => {
   assert.equal(protocol.listenerCount("closed"), 0);
 });
 
-test("MQTT forced-close failure preserves original error", async () => {
+void test("MQTT forced-close failure preserves original error", async () => {
   const { transport, protocol } = createTransport(() => {});
   const warnings: string[] = [];
 
@@ -191,8 +192,64 @@ test("MQTT forced-close failure preserves original error", async () => {
   await assert.rejects(pending, /closed before ready/);
 
   assert.ok(
-    warnings.some(message =>
-      message.includes("MQTT forced close failed"),
-    ),
+    warnings.some((message) => message.includes("MQTT forced close failed")),
   );
+});
+
+void test("connection aborts when ioBroker cannot create the ready timeout", async () => {
+  let connectCalled = false;
+  const { transport, protocol } = createTransport(() => {
+    connectCalled = true;
+  });
+
+  Object.assign(transport, {
+    timers: {
+      ...testTimerService,
+      setTimeout: () => undefined,
+    },
+  });
+
+  await assert.rejects(transport.connect(), /adapter is stopping/);
+
+  assert.equal(connectCalled, false);
+  assert.equal(protocol.listenerCount("ready"), 0);
+  assert.equal(protocol.listenerCount("closed"), 0);
+});
+
+void test("MQTT cleanup forces socket closure when ioBroker cannot create a cleanup timer", async () => {
+  let forcedClose = false;
+  const warnings: string[] = [];
+  const { transport, protocol } = createTransport(() => {});
+
+  Object.assign(transport, {
+    warn: (message: string) => warnings.push(message),
+    timers: {
+      ...testTimerService,
+      setTimeout: (callback: () => void, delay: number) =>
+        delay === 5000
+          ? undefined
+          : testTimerService.setTimeout(callback, delay),
+    },
+    vacbot: {
+      ecovacs: Object.assign(protocol, {
+        client: {
+          end: (force: boolean) => {
+            forcedClose = force;
+          },
+        },
+      }),
+      connect: () => {},
+      getProtocol: () => "MQTT",
+      disconnectAsync: () => new Promise<void>(() => {}),
+    },
+  });
+
+  const pending = transport.connect();
+  protocol.emit("closed");
+
+  await assert.rejects(pending, /closed before ready/);
+  assert.equal(forcedClose, true);
+  assert.equal(protocol.listenerCount("ready"), 0);
+  assert.equal(protocol.listenerCount("closed"), 0);
+  assert.ok(warnings.some((message) => /cleanup timed out/.test(message)));
 });

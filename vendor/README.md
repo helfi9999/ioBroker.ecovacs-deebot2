@@ -32,3 +32,19 @@ The adapter's root package.json declares the actual, updated dependencies.
 Runtime corrections do not depend on root-only npm overrides or edits to a
 user's node_modules. Browser bundles, examples and unused upstream logo assets
 are not included. See ../THIRD_PARTY_NOTICES.md and ../docs/DEPENDENCY_SECURITY.md.
+
+## Node.js built-in module imports
+
+On 2026-11-18, imports of Node.js built-in modules in 10 included
+vendor JavaScript files were updated to use explicit `node:` prefixes.
+
+Affected modules include crypto, fs, events, path, url, tls,
+child_process and buffer.
+
+This change does not intentionally alter the Ecovacs or XMPP
+protocol logic. The original upstream SHA-256 values remain
+unchanged in PROVENANCE.json; the distributed SHA-256 values
+were updated for the affected files.
+
+Compatibility must be verified through the adapter's automated
+tests and subsequent hardware testing.

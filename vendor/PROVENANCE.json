@@ -26,8 +26,8 @@
     {
       "file": "ecovacs-deebot/index.js",
       "upstreamSha256": "886378af471383c959efb9de62904d85b87491f7daecb5f4a4886a4d7f478add",
-      "distributedSha256": "886378af471383c959efb9de62904d85b87491f7daecb5f4a4886a4d7f478add",
-      "changed": false
+      "distributedSha256": "3c2d80a50a7609030d2a923ec2e8a93bcf6e2179ffb83a56d3040e1f79babfb7",
+      "changed": true
     },
     {
       "file": "ecovacs-deebot/key.pem",
@@ -74,8 +74,8 @@
     {
       "file": "ecovacs-deebot/library/ecovacs.js",
       "upstreamSha256": "9c3a681b452bdad7b797db8d325b8667e39d5389031d8595b942d886628cf61c",
-      "distributedSha256": "9c3a681b452bdad7b797db8d325b8667e39d5389031d8595b942d886628cf61c",
-      "changed": false
+      "distributedSha256": "b4a0c13ecb8651d7beffd82003555de952ccc6efe78e6488bb2a870f84c1881c",
+      "changed": true
     },
     {
       "file": "ecovacs-deebot/library/ecovacsMQTT.js",
@@ -164,8 +164,8 @@
     {
       "file": "ecovacs-deebot/library/vacBot.js",
       "upstreamSha256": "88b791a7fa41506d3997180b0f1ad59940154c0d6f284c445aad31236a0d92d1",
-      "distributedSha256": "88b791a7fa41506d3997180b0f1ad59940154c0d6f284c445aad31236a0d92d1",
-      "changed": false
+      "distributedSha256": "1c8aa1d76ae67062179127f5e936f331ea88efa85f2fa63d19379fb6c439689d",
+      "changed": true
     },
     {
       "file": "ecovacs-deebot/package.json",
@@ -182,7 +182,7 @@
     {
       "file": "simple-xmpp/lib/simple-xmpp.js",
       "upstreamSha256": "60010828b908c1514f8382326620383a6407a8927d7434736feda8a6f1c36374",
-      "distributedSha256": "32811cd20b0032497a27983ecfcaadb9af784c1685eae9f22bebbcaf8a3ff2e9",
+      "distributedSha256": "4e3bbf52048dc4e71f3a1aab4e2c23afd183f4b40d3ab1a3ce658f04adbb66a2",
       "changed": true
     },
     {
@@ -218,8 +218,8 @@
     {
       "file": "node-xmpp-client/lib/Client.js",
       "upstreamSha256": "4db60de9d2ee7e089ab2664adc86bd1e46e1d722cd09ce63a8bb73e6121a520f",
-      "distributedSha256": "4db60de9d2ee7e089ab2664adc86bd1e46e1d722cd09ce63a8bb73e6121a520f",
-      "changed": false
+      "distributedSha256": "17aa95e796e7762199da8edfece29cb4cd23fe63fdd8aa05ccc57fc67d8852ad",
+      "changed": true
     },
     {
       "file": "node-xmpp-client/lib/authentication/anonymous.js",
@@ -230,8 +230,8 @@
     {
       "file": "node-xmpp-client/lib/authentication/digestmd5.js",
       "upstreamSha256": "6753a74a788e3b18b4ea1b387c8e74e5ad7aa7d347e81deb8a3a31f94a5b21d4",
-      "distributedSha256": "6753a74a788e3b18b4ea1b387c8e74e5ad7aa7d347e81deb8a3a31f94a5b21d4",
-      "changed": false
+      "distributedSha256": "3281d84fff1f9032c7b1a79308cb7bf4c789fcf64795d95a28aeef8ae975a3f5",
+      "changed": true
     },
     {
       "file": "node-xmpp-client/lib/authentication/external.js",
@@ -242,8 +242,8 @@
     {
       "file": "node-xmpp-client/lib/authentication/mechanism.js",
       "upstreamSha256": "287c46cfced8e04e48716768481a8f8e4ae2584ed1c1fe38578defdcfb2d7548",
-      "distributedSha256": "287c46cfced8e04e48716768481a8f8e4ae2584ed1c1fe38578defdcfb2d7548",
-      "changed": false
+      "distributedSha256": "107ed76a0b8444b81e07aa59f2a4bf924c4aa8018fcf8a96b53ad5e0678adba0",
+      "changed": true
     },
     {
       "file": "node-xmpp-client/lib/authentication/plain.js",
@@ -260,7 +260,7 @@
     {
       "file": "node-xmpp-client/lib/bosh.js",
       "upstreamSha256": "ca4bef56e6a883eae5d38bc3a783fed0a91122e3102d8a0c2ee1326bf507a959",
-      "distributedSha256": "ebd597f61b0a1c63bb948da516372d59165962d30ef5672ef8276faa40ac5f9c",
+      "distributedSha256": "7ef036e385bf95a42345f8fa4910e85470da65fd76f367d52e27c1306b43e789",
       "changed": true
     },
     {
@@ -278,14 +278,14 @@
     {
       "file": "node-xmpp-client/lib/session.js",
       "upstreamSha256": "60113b9067be297f4d0a7f0cc6c14481c3b53ee624c676112e464dc13e9f0dcd",
-      "distributedSha256": "60113b9067be297f4d0a7f0cc6c14481c3b53ee624c676112e464dc13e9f0dcd",
-      "changed": false
+      "distributedSha256": "fd0f8ab111837b9af29ad7e5ac404c22ac4ad10bb0817edd25c1fa7ccc236577",
+      "changed": true
     },
     {
       "file": "node-xmpp-client/lib/websockets.js",
       "upstreamSha256": "3588fbee9526f52116dfcc6537ca349b0dfd9da85ac0d50604800dd30446a20d",
-      "distributedSha256": "3588fbee9526f52116dfcc6537ca349b0dfd9da85ac0d50604800dd30446a20d",
-      "changed": false
+      "distributedSha256": "fb444b1b8d3bbb1f23b37dacf50fcace25f4448e813f8cf340a8758bbc5b8af6",
+      "changed": true
     },
     {
       "file": "node-xmpp-client/package.json",

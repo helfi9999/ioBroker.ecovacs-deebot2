@@ -70,6 +70,23 @@ See [publication preparation](docs/PUBLISHING.md) for the remaining release requ
 
 ## Changelog
 
+### 0.10.113 (planned)
+
+- Correct the ioBroker news history to list published versions only.
+- Use compatible SemVer ranges for 14 runtime dependencies.
+- Update release and dependency-security documentation.
+- Verify 60 adapter tests, 50 package checks and a clean npm audit.
+
+
+### 0.10.112
+
+- Wait for the actual MQTT/XMPP ready event before confirming robot connectivity.
+- Add connection timeouts and bounded cleanup for failed connection attempts.
+- Improve session handling and error recovery.
+- Add connection readiness and timeout tests.
+- Verify connectivity and status updates with Luna and Sky.
+
+
 ### 0.10.111
 
 - Encrypt session tokens before writing the instance object so controller decryption preserves the original token on restart.
@@ -116,9 +133,9 @@ snapshot, not a guarantee that no vulnerabilities exist. The older protocol
 sources are locally maintained so that models such as DEEBOT 900 remain
 available for testing.
 
-## License and acknowledgements
+## License
 
-Copyright (c) 2026 Thomas H. (helfi9999). Distributed under **GPL-3.0-only**;
+Copyright (c) 2026 Thomas H. (helfi9999@gmail.com). Distributed under **GPL-3.0-only**;
 see [LICENSE](LICENSE). Original MIT notices for the earlier map project and
 the Ecovacs adapter reference are preserved in [licenses](licenses).
 

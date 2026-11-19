@@ -12,9 +12,9 @@ var Plain = require('./authentication/plain')
 var DigestMD5 = require('./authentication/digestmd5')
 var XOAuth2 = require('./authentication/xoauth2')
 var External = require('./authentication/external')
-var exec = require('child_process').exec
+var exec = require('node:child_process').exec
 var debug = require('debug')('xmpp:client')
-var path = require('path')
+var path = require('node:path')
 
 var NS_CLIENT = 'jabber:client'
 var NS_REGISTER = 'jabber:iq:register'
@@ -43,7 +43,7 @@ if (typeof btoa === 'function') {
     return atob(encoded)
   }
 } else {
-  Buffer = require('buffer').Buffer
+  Buffer = require('node:buffer').Buffer
   decode64 = function (encoded) {
     return (new Buffer(encoded, 'base64')).toString('utf8')
   }
@@ -53,7 +53,7 @@ if (typeof atob === 'function') {
     return btoa(decoded)
   }
 } else {
-  Buffer = require('buffer').Buffer
+  Buffer = require('node:buffer').Buffer
   encode64 = function (decoded) {
     return (new Buffer(decoded, 'utf8')).toString('base64')
   }

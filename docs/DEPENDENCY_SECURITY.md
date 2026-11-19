@@ -65,3 +65,35 @@ about dependencies of other adapters on an existing ioBroker server. Some
 retained XMPP support packages are deprecated despite having no reported audit
 findings in the checked tree; replacement with a new protocol implementation
 would require separate development and hardware tests.
+
+## Update: 2026-11-18 – Version 0.10.112
+
+Version 0.10.112 wurde auf GitHub und npm veröffentlicht.
+
+Validierung:
+- 60 automatisierte Adaptertests erfolgreich.
+- 50 ioBroker-Paketprüfungen erfolgreich.
+- GitHub Actions erfolgreich.
+- npm audit meldete bei der geprüften Installation keine Schwachstellen.
+- 48 Vendor-Dateien anhand dokumentierter SHA-256-Prüfsummen geprüft.
+- Praxistest mit Luna und Sky erfolgreich: Verbindungsstatus und
+  aktualisierte Statusdaten wurden bestätigt.
+
+Für die nächste Version wurden die 14 fest eingetragenen
+Laufzeit-Abhängigkeitsversionen auf kompatible SemVer-Bereiche
+umgestellt. Die package-lock.json wurde entsprechend aktualisiert.
+
+Nach diesen Änderungen wurden erneut 60 Adaptertests und
+50 ioBroker-Paketprüfungen erfolgreich ausgeführt.
+
+Noch offen:
+- Langzeitstabilität und Neustartverhalten weiter prüfen.
+- Weitere Gerätefunktionen praktisch testen.
+- npm-Owner-Einladung an bluefox: Annahme noch nicht bestätigt.
+- Offizielle Aufnahme ins ioBroker-Latest-Repository.
+
+Die Sicherheitsprüfungen gelten für den jeweiligen Prüfzeitpunkt.
+Sie garantieren weder vollständige Schwachstellenfreiheit noch
+die langfristige Kompatibilität zukünftiger Abhängigkeitsversionen.
+
+Eine neue Adapterversion wurde für diese Änderungen noch nicht erstellt.

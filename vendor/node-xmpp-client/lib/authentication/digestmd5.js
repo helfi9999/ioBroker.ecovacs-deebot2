@@ -2,7 +2,7 @@
 
 var inherits = require('node-xmpp-core').inherits
 var Mechanism = require('./mechanism')
-var crypto = require('crypto')
+var crypto = require('node:crypto')
 var MD5 = require('md5.js')
 
 /**

@@ -4,8 +4,15 @@
  * See THIRD_PARTY_NOTICES.md for upstream components and retained notices.
  */
 
-import type { AdapterLogger, CloudCredentials, CloudSession, CloudSessionFactory, RobotDescriptor } from "../domain/types";
+import type {
+  AdapterLogger,
+  CloudCredentials,
+  CloudSession,
+  CloudSessionFactory,
+  RobotDescriptor,
+} from "../domain/types";
 
+/** Configuration and optional cached credentials for an Ecovacs cloud session. */
 export interface SessionConfig {
   username: string;
   password: string;
@@ -17,25 +24,51 @@ export interface SessionConfig {
   authToken?: string;
 }
 
+/** Indicates that Ecovacs requires additional account verification. */
 export class VerificationRequiredError extends Error {
-  constructor(message: string, public readonly code = "1013") {
+  /**
+   * Creates an account-verification error.
+   *
+   * @param message - Description of the verification failure.
+   * @param code - Ecovacs verification error code.
+   */
+  constructor(
+    message: string,
+    public readonly code = "1013",
+  ) {
     super(message);
     this.name = "VerificationRequiredError";
   }
 }
 
+/** Manages authentication and the lifecycle of an Ecovacs cloud session. */
 export class SessionManager {
   private session: CloudSession | null = null;
   private loginPromise: Promise<void> | null = null;
 
+  /**
+   * Creates a cloud session manager.
+   *
+   * @param factory - Factory used to create cloud sessions.
+   * @param logger - Logger for session status messages.
+   */
   constructor(
     private readonly factory: CloudSessionFactory,
     private readonly logger: AdapterLogger,
   ) {}
 
+  /**
+   * Opens a cloud session, sharing concurrent login attempts.
+   *
+   * @param config - Account, region, and optional verification credentials.
+   */
   async login(config: SessionConfig): Promise<void> {
-    if (this.session) return;
-    if (this.loginPromise) return this.loginPromise;
+    if (this.session) {
+      return;
+    }
+    if (this.loginPromise) {
+      return this.loginPromise;
+    }
 
     this.loginPromise = this.open(config);
     try {
@@ -54,15 +87,27 @@ export class SessionManager {
     });
 
     try {
-      const cachedCredentials = !config.verificationCode?.trim() && config.authUserId?.trim() && config.authToken?.trim()
-        ? { userId: config.authUserId.trim(), token: config.authToken.trim() }
-        : undefined;
-      await candidate.login(config.username.trim(), config.password, config.verificationCode?.trim(), cachedCredentials);
+      const cachedCredentials =
+        !config.verificationCode?.trim() &&
+        config.authUserId?.trim() &&
+        config.authToken?.trim()
+          ? { userId: config.authUserId.trim(), token: config.authToken.trim() }
+          : undefined;
+      await candidate.login(
+        config.username.trim(),
+        config.password,
+        config.verificationCode?.trim(),
+        cachedCredentials,
+      );
       this.session = candidate;
-      this.logger.info("Ecovacs session initialized; device access has not yet been confirmed");
+      this.logger.info(
+        "Ecovacs session initialized; device access has not yet been confirmed",
+      );
     } catch (error) {
       await candidate.close().catch(() => undefined);
-      if (error instanceof VerificationRequiredError) throw error;
+      if (error instanceof VerificationRequiredError) {
+        throw error;
+      }
       if (this.isVerificationError(error)) {
         throw new VerificationRequiredError(
           "Ecovacs rejected the login with code 1013. Account verification or an updated authentication provider is required.",
@@ -72,41 +117,81 @@ export class SessionManager {
     }
   }
 
+  /**
+   * Retrieves the robots available through the authenticated session.
+   *
+   * @returns Robots discovered in the Ecovacs account.
+   */
   async getDevices(): Promise<RobotDescriptor[]> {
-    if (!this.session) throw new Error("Session is not logged in");
+    if (!this.session) {
+      throw new Error("Session is not logged in");
+    }
     return this.session.listRobots();
   }
 
+  /**
+   * Renews authentication using the configured account credentials.
+   *
+   * @param config - Account credentials used for renewal.
+   */
   async refreshAuthentication(config: SessionConfig): Promise<void> {
-    if (!this.session?.refreshAuthentication) throw new Error("Session does not support authentication renewal");
-    await this.session.refreshAuthentication(config.username.trim(), config.password);
+    if (!this.session?.refreshAuthentication) {
+      throw new Error("Session does not support authentication renewal");
+    }
+    await this.session.refreshAuthentication(
+      config.username.trim(),
+      config.password,
+    );
   }
 
+  /** Returns the active cloud session or throws if not authenticated. */
   get current(): CloudSession {
-    if (!this.session) throw new Error("Session is not logged in");
+    if (!this.session) {
+      throw new Error("Session is not logged in");
+    }
     return this.session;
   }
 
+  /** Returns the current authentication credentials when available. */
   get authCredentials(): CloudCredentials | null {
     return this.session?.authCredentials?.() ?? null;
   }
 
+  /** Closes the active cloud session and clears its reference. */
   async close(): Promise<void> {
     const active = this.session;
     this.session = null;
-    if (active) await active.close();
+    if (active) {
+      await active.close();
+    }
   }
 
   private validate(config: SessionConfig): void {
-    if (!config.username.trim()) throw new Error("Ecovacs username is missing");
-    if (!config.password) throw new Error("Ecovacs password is missing");
-    if (!/^[a-z]{2}$/i.test(config.country)) throw new Error("Country must be a two-letter code");
-    if (!config.deviceId.trim()) throw new Error("A stable client device ID is required");
+    if (!config.username.trim()) {
+      throw new Error("Ecovacs username is missing");
+    }
+    if (!config.password) {
+      throw new Error("Ecovacs password is missing");
+    }
+    if (!/^[a-z]{2}$/i.test(config.country)) {
+      throw new Error("Country must be a two-letter code");
+    }
+    if (!config.deviceId.trim()) {
+      throw new Error("A stable client device ID is required");
+    }
   }
 
   private isVerificationError(error: unknown): boolean {
-    if (!(error instanceof Error)) return false;
-    const candidate = error as Error & { code?: string | number; response?: { data?: { code?: string | number } } };
-    return String(candidate.code ?? candidate.response?.data?.code ?? "") === "1013" || /\b1013\b/.test(error.message);
+    if (!(error instanceof Error)) {
+      return false;
+    }
+    const candidate = error as Error & {
+      code?: string | number;
+      response?: { data?: { code?: string | number } };
+    };
+    return (
+      String(candidate.code ?? candidate.response?.data?.code ?? "") ===
+        "1013" || /\b1013\b/.test(error.message)
+    );
   }
 }

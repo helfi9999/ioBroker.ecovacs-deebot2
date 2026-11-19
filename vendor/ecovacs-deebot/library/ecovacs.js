@@ -1,6 +1,6 @@
 'use strict';
 
-const EventEmitter = require('events');
+const EventEmitter = require('node:events');
 const tools = require('./tools');
 const constants = require('./constants');
 const {errorCodes} = require('./errorCodes.json');

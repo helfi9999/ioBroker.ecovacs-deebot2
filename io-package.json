@@ -29,7 +29,7 @@
       "zh-cn": "通过交互式地图和房间清洁功能控制多个 Ecovacs 机器人"
     },
     "authors": [
-      "Thomas H. (helfi9999)"
+      "Thomas H. <helfi9999@gmail.com> (helfi9999)"
     ],
     "platform": "Javascript/Node.js",
     "mode": "daemon",
@@ -41,80 +41,41 @@
     "connectionType": "cloud",
     "dataSource": "push",
     "tier": 2,
-    "compact": true,
+    "compact": false,
     "adminUI": {
       "config": "json"
     },
     "type": "household",
     "dependencies": [
       {
-        "js-controller": ">=5.0.19"
+        "js-controller": ">=6.0.11"
       }
     ],
     "globalDependencies": [
       {
-        "admin": ">=6.0.0"
+        "admin": ">=7.6.20"
       }
     ],
     "icon": "ecovacs-deebot2.png",
     "news": {
-      "0.10.111": {
-        "en": "Encrypt persisted session tokens for controller restarts; clarify the initial session status.",
-        "de": "Gespeicherte Sitzungstokens für Controller-Neustarts verschlüsseln; anfänglichen Sitzungsstatus klarstellen.",
-        "ru": "Шифрование сохранённых токенов сеанса для перезапуска контроллера; уточнение начального статуса сеанса.",
-        "pt": "Encripta tokens de sessão guardados para reinícios do controlador e esclarece o estado inicial da sessão.",
-        "nl": "Versleutelt opgeslagen sessietokens voor controllerherstarts en verduidelijkt de initiële sessiestatus.",
-        "fr": "Chiffre les jetons de session enregistrés pour les redémarrages du contrôleur et clarifie le statut initial.",
-        "it": "Cifra i token di sessione salvati per i riavvii del controller e chiarisce lo stato iniziale della sessione.",
-        "es": "Cifra los tokens de sesión guardados para reinicios del controlador y aclara el estado inicial.",
-        "pl": "Szyfrowanie zapisanych tokenów sesji przy ponownym uruchomieniu kontrolera i doprecyzowanie stanu początkowego.",
-        "uk": "Шифрування збережених токенів сеансу для перезапуску контролера та уточнення початкового стану.",
-        "zh-cn": "加密保存的会话令牌以支持控制器重启，并明确初始会话状态。"
-      },
-      "0.10.108": {
-        "en": "Handle rejected MQTT disconnects without crashing the adapter; close remaining sockets and log robot-specific warnings.",
-        "de": "Abgewiesene MQTT-Abmeldungen ohne Adapterabsturz behandeln; verbleibende Verbindungen schließen und gerätebezogene Warnungen protokollieren.",
-        "ru": "Обработка ошибок отключения MQTT без аварийного завершения адаптера; закрытие оставшихся соединений и запись предупреждений для каждого робота.",
-        "pt": "Trata falhas ao desligar o MQTT sem encerrar o adaptador; fecha ligações restantes e regista avisos por robô.",
-        "nl": "Handelt mislukte MQTT-verbrekingen af zonder adaptercrash; sluit resterende verbindingen en logt waarschuwingen per robot.",
-        "fr": "Gère les échecs de déconnexion MQTT sans arrêter l’adaptateur, ferme les connexions restantes et journalise les avertissements par robot.",
-        "it": "Gestisce gli errori di disconnessione MQTT senza arrestare l’adattatore; chiude le connessioni residue e registra avvisi per robot.",
-        "es": "Gestiona los fallos de desconexión MQTT sin bloquear el adaptador; cierra las conexiones restantes y registra avisos por robot.",
-        "pl": "Obsługa błędów rozłączania MQTT bez awarii adaptera; zamykanie pozostałych połączeń i rejestrowanie ostrzeżeń dla każdego robota.",
-        "uk": "Обробка помилок відключення MQTT без аварійного завершення адаптера; закриття решти з’єднань і запис попереджень для кожного робота.",
-        "zh-cn": "处理 MQTT 断开连接失败，避免适配器崩溃；关闭剩余连接并记录各机器人的警告。"
-      },
-      "0.10.109": {
-        "en": "Prepare ioBroker package and startup tests, restore the cloud connection indicator and correct protected/encrypted configuration metadata.",
-        "de": "ioBroker-Paket- und Starttests vorbereiten, Cloud-Verbindungsanzeige wiederherstellen und Metadaten für geschützte/verschlüsselte Einstellungen korrigieren.",
-        "ru": "Подготовка тестов пакета и запуска ioBroker, восстановление индикатора облачного соединения и исправление метаданных защищённых и зашифрованных настроек.",
-        "pt": "Prepara testes do pacote e do arranque do ioBroker, restaura o indicador da ligação à nuvem e corrige os metadados das definições protegidas e cifradas.",
-        "nl": "Bereidt ioBroker-pakket- en opstarttests voor, herstelt de cloudverbindingsindicator en corrigeert metadata voor beveiligde en versleutelde instellingen.",
-        "fr": "Prépare les tests du paquet et du démarrage ioBroker, rétablit l’indicateur de connexion au cloud et corrige les métadonnées des paramètres protégés et chiffrés.",
-        "it": "Prepara i test del pacchetto e di avvio di ioBroker, ripristina l’indicatore della connessione cloud e corregge i metadati delle impostazioni protette e cifrate.",
-        "es": "Prepara las pruebas del paquete y del inicio de ioBroker, restaura el indicador de conexión a la nube y corrige los metadatos de los ajustes protegidos y cifrados.",
-        "pl": "Przygotowanie testów pakietu i uruchamiania ioBroker, przywrócenie wskaźnika połączenia z chmurą oraz poprawa metadanych chronionych i szyfrowanych ustawień.",
-        "uk": "Підготовка тестів пакета й запуску ioBroker, відновлення індикатора хмарного з’єднання та виправлення метаданих захищених і зашифрованих налаштувань.",
-        "zh-cn": "准备 ioBroker 软件包和启动测试，恢复云连接状态指示，并修正受保护及加密配置的元数据。"
-      },
-      "0.10.110": {
-        "en": "Update vulnerable dependencies while retaining legacy protocols; lock distributed dependencies and add protocol compatibility and security checks.",
-        "de": "Verwundbare Abhängigkeiten bei Erhalt der alten Protokolle aktualisieren; ausgelieferte Abhängigkeiten festlegen und Protokoll- sowie Sicherheitsprüfungen ergänzen.",
-        "ru": "Обновление уязвимых зависимостей с сохранением старых протоколов; фиксация поставляемых зависимостей и добавление проверок совместимости и безопасности.",
-        "pt": "Atualiza dependências vulneráveis mantendo os protocolos antigos; fixa as dependências distribuídas e adiciona verificações de compatibilidade e segurança.",
-        "nl": "Werkt kwetsbare afhankelijkheden bij met behoud van oudere protocollen; legt meegeleverde afhankelijkheden vast en voegt compatibiliteits- en beveiligingscontroles toe.",
-        "fr": "Met à jour les dépendances vulnérables en conservant les anciens protocoles ; verrouille les dépendances distribuées et ajoute des tests de compatibilité et de sécurité.",
-        "it": "Aggiorna le dipendenze vulnerabili mantenendo i protocolli precedenti; blocca le dipendenze distribuite e aggiunge controlli di compatibilità e sicurezza.",
-        "es": "Actualiza dependencias vulnerables conservando los protocolos antiguos; fija las dependencias distribuidas y añade pruebas de compatibilidad y seguridad.",
-        "pl": "Aktualizacja podatnych zależności z zachowaniem starszych protokołów; przypięcie dostarczanych zależności oraz dodanie testów zgodności i bezpieczeństwa.",
-        "uk": "Оновлення вразливих залежностей зі збереженням старих протоколів; фіксація залежностей і додавання перевірок сумісності та безпеки.",
-        "zh-cn": "保留旧协议并更新存在漏洞的依赖；锁定分发的依赖，增加协议兼容性和安全检查。"
+      "0.10.112": {
+        "en": "Improve robot connection readiness detection, session handling and connection timeout cleanup.",
+        "de": "Erkennung der Roboter-Verbindungsbereitschaft, Sitzungsverwaltung und Bereinigung bei Verbindungszeitüberschreitungen verbessert.",
+        "ru": "Улучшены определение готовности подключения роботов, управление сеансами и очистка ресурсов при тайм-аутах подключения.",
+        "pt": "Melhoradas a deteção da disponibilidade da ligação dos robôs, a gestão de sessões e a limpeza de recursos após tempos limite de ligação.",
+        "nl": "Verbeterde detectie van de verbindingsgereedheid van robots, sessiebeheer en het opruimen van resources bij verbindingstime-outs.",
+        "fr": "Amélioration de la détection de disponibilité des connexions des robots, de la gestion des sessions et du nettoyage après expiration des délais de connexion.",
+        "it": "Migliorati il rilevamento della disponibilità della connessione dei robot, la gestione delle sessioni e la pulizia delle risorse in caso di timeout della connessione.",
+        "es": "Mejoradas la detección de disponibilidad de conexión de los robots, la gestión de sesiones y la limpieza de recursos tras tiempos de espera de conexión.",
+        "pl": "Ulepszono wykrywanie gotowości połączenia robotów, zarządzanie sesjami oraz zwalnianie zasobów po przekroczeniu limitu czasu połączenia.",
+        "uk": "Покращено визначення готовності підключення роботів, керування сеансами та очищення ресурсів у разі перевищення часу очікування підключення.",
+        "zh-cn": "改进了机器人连接就绪状态检测、会话管理以及连接超时后的资源清理。"
       }
     },
     "licenseInformation": {
       "type": "free",
       "license": "GPL-3.0-only",
-      "link": "https://github.com/helfi9999/ioBroker.ecovacs-deebot2/blob/main/LICENSE"
+      "link": "https://www.gnu.org/licenses/gpl-3.0.html"
     },
     "keywords": [
       "ecovacs",

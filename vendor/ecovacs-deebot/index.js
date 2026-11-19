@@ -1,9 +1,9 @@
 'use strict';
 
-const url = require('url');
+const url = require('node:url');
 const axios = require('axios').default;
-const crypto = require('crypto');
-const fs = require('fs');
+const crypto = require('node:crypto');
+const fs = require('node:fs');
 const constants = require('./library/constants');
 const uniqid = require('uniqid');
 const tools = require('./library/tools');

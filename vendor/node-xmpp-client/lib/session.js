@@ -1,7 +1,7 @@
 'use strict'
 
-var tls = require('tls')
-var EventEmitter = require('events').EventEmitter
+var tls = require('node:tls')
+var EventEmitter = require('node:events').EventEmitter
 var core = require('node-xmpp-core')
 var inherits = core.inherits
 var Connection = core.Connection
