@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "ecovacs-deebot2",
-    "version": "0.10.112",
+    "version": "0.10.113",
     "titleLang": {
       "en": "Ecovacs Deebot 2",
       "de": "Ecovacs Deebot 2",
@@ -58,6 +58,19 @@
     ],
     "icon": "ecovacs-deebot2.png",
     "news": {
+      "0.10.113": {
+        "en": "Correct the ioBroker news history to list published versions only.\nUse compatible SemVer ranges for 14 runtime dependencies.\nUpdate release and dependency-security documentation.\nVerify 62 adapter tests, 61 package checks and a clean npm audit.",
+        "de": "Korrigieren Sie den ioBroker News History und listet nur Versionen auf.\nNutze kompatible SemVer-Ranges für 14 Laufzeitabhängigkeiten.\nUpdate und Dokumentation zur Absicherung.\nVerifiziere 62 Adaptertests, 61 Pakettests und NPM.",
+        "ru": "Исправьте историю новостей IOBroker, указав только опубликованные версии.\nИспользуйте совместимые диапазоны SemVer для 14 зависимостей времени выполнения.\nОбновить релиз и документацию по защите зависимостей.\nПроверьте 62 теста адаптеров, 61 проверку пакета и чистый аудит npm.",
+        "pt": "Corrija o histórico do IOBroker para listar apenas versões.\nUse faixas SemVer compatíveis com 14 dependências.\nVersão de atualização e documentação de segurança.\nVerifique 62 testes de adaptador, 61 pacotes e uma boa auditoria de npm.",
+        "nl": "Corrigeer de nieuwsgeschiedenis van IOBroker om alleen de gepubliceerde versies weer te geven.\nGebruik compatibele SemVer-reeksen voor 14 runtime-afhankelijkheden.\nUpdate, release en documentatie over afhankelijkheidsbeveiliging.\nControleer 62 adaptertests, 61 pakketcontroles en een schone npm-audit.",
+        "fr": "Corrigez l'historique d'IObroker pour ne répertorier que les versions publiées.\nUtilisez des plages SemVer compatibles pour 14 runtime.\nMise à jour de la documentation et de sécurité des dépendances.\nVérifiez 62 tests d'adaptateurs, 61 colis et un audit NPM propre.",
+        "it": "Corregga la cronologia di IOBroker solo per le versioni pubblicate.\nUsa range SemVer compatibili per 14 dipendenze di runtime.\nVersione di aggiornamento e sicurezza delle dipendenze.\nVerifica 62 test adattatori, 61 pacchi e un audit npm pulito.",
+        "es": "Corrija el historial de noticias de ioBroker para ver solo las publicadas.\nUse gamas de SemVer compatibles para 14 dependencias de ejecución.\nActualice la documentación de versión y seguridad de dependencias.\nVerifique 62 pruebas de adaptadores, 61 paquetes y una auditoría limpia de npm.",
+        "pl": "Popraw historię wiadomości iOBroker, aby wyświetlić tylko opublikowane wersje.\nUżywaj kompatybilnych zakresów SEMver dla 14 zależności wykonawczych.\nZaktualizuj dokumentację dotyczącą wersji i zabezpieczeń zależności.\nZweryfikuj 62 testy adaptera, 61 kontroli pakietów i czysty audyt npm.",
+        "uk": "Виправте історію новин IObroker, щоб перелічити лише опубліковані версії.\nВикористовуйте сумісні діапазони SEMver для 14 залежностей під час виконання.\nОновіть випуск та документацію щодо безпеки залежності.\nПеревірте 62 тести адаптера, 61 перевірку пакетів та чистий аудит npm.",
+        "zh-cn": "更正 IOBroker 新闻历史记录，仅列出已发布的版本。\n将兼容的 SemVer 范围用于 14 个运行时依赖项。\n更新版本和依赖安全文档。\n验证 62 次适配器测试、61 次包检查和一次干净的 npm 审计。"
+      },
       "0.10.112": {
         "en": "Improve robot connection readiness detection, session handling and connection timeout cleanup.",
         "de": "Erkennung der Roboter-Verbindungsbereitschaft, Sitzungsverwaltung und Bereinigung bei Verbindungszeitüberschreitungen verbessert.",

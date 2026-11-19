@@ -69,14 +69,12 @@ npm run pack:adapter
 See [publication preparation](docs/PUBLISHING.md) for the remaining release requirements.
 
 ## Changelog
-
-### **WORK IN PROGRESS**
+### 0.10.113 (2026-11-19)
 
 - Correct the ioBroker news history to list published versions only.
 - Use compatible SemVer ranges for 14 runtime dependencies.
 - Update release and dependency-security documentation.
 - Verify 62 adapter tests, 61 package checks and a clean npm audit.
-
 
 ### 0.10.112
 
@@ -85,7 +83,6 @@ See [publication preparation](docs/PUBLISHING.md) for the remaining release requ
 - Improve session handling and error recovery.
 - Add connection readiness and timeout tests.
 - Verify connectivity and status updates with Luna and Sky.
-
 
 ### 0.10.111
 
@@ -100,7 +97,6 @@ See [publication preparation](docs/PUBLISHING.md) for the remaining release requ
 - Remove the unused native-canvas dependency; adapter maps continue to use the SVG renderer.
 - Verify dependencies in a fresh consumer installation and add protocol compatibility/security checks.
 
-
 ### 0.10.109
 
 - Restore the adapter-level cloud connection indicator required by ioBroker, alongside individual robot connections.
@@ -108,13 +104,11 @@ See [publication preparation](docs/PUBLISHING.md) for the remaining release requ
 - Correct the placement of encrypted/protected configuration fields and update license metadata to the current schema.
 - Add ioBroker package validation, installation/startup tests and CI commands.
 
-
 ### 0.10.108
 
 - Catch MQTT disconnect failures, including upstream rejection with `false`, even when initiated internally by the library after an authentication error.
 - Close remaining MQTT sockets and report robot-specific warnings instead of leaving the rejection unhandled.
 - Include the publication license notices, source files and original project icon prepared after 0.10.107.
-
 
 ### 0.10.107
 
