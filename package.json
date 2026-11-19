@@ -18,7 +18,8 @@
     "prepack": "npm run build",
     "test:security": "npm audit --omit=dev --audit-level=low",
     "test:security:all": "npm audit --audit-level=low",
-    "lint": "eslint src test"
+    "lint": "eslint src test",
+    "release": "release-script"
   },
   "keywords": [
     "ioBroker",
@@ -46,6 +47,8 @@
     "ws": "^8.23.0"
   },
   "devDependencies": {
+    "@alcalzone/release-script": "^5.2.1",
+    "@alcalzone/release-script-plugin-iobroker": "^5.2.0",
     "@iobroker/eslint-config": "^2.3.4",
     "@iobroker/testing": "^6.3.2",
     "@types/node": "^22.20.5",
