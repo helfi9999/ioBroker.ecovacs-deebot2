@@ -219,6 +219,44 @@ void test("a room command starts tracking before the first cleaning report", asy
   );
 });
 
+void test("a custom area command starts tracking immediately and only once", async () => {
+  const states = new Map<string, unknown>();
+  const adapter = {
+    setStateAsync: (id: string, value: unknown): Promise<void> => {
+      states.set(id, value);
+      return Promise.resolve();
+    },
+  };
+  const projector = new StateProjector(adapter as never, new EventBus());
+  const internal = projector as unknown as {
+    executeCommand(
+      id: string,
+      objectId: string,
+      command: { type: "cleanCustomArea"; coordinates: string; repetitions: 1 },
+    ): Promise<boolean>;
+    startLocalCleaningRun(id: string, status: string): Promise<void>;
+  };
+  const starts: string[] = [];
+  internal.startLocalCleaningRun = (_id, status): Promise<void> => {
+    starts.push(status);
+    return Promise.resolve();
+  };
+
+  assert.equal(
+    await internal.executeCommand("robot", "Luna", {
+      type: "cleanCustomArea",
+      coordinates: "10,20,80,90",
+      repetitions: 1,
+    }),
+    true,
+  );
+  assert.deepEqual(starts, ["custom_area"]);
+  assert.deepEqual(
+    JSON.parse(String(states.get("devices.Luna.control.lastCommand"))),
+    { type: "cleanCustomArea", coordinates: "10,20,80,90", repetitions: 1 },
+  );
+});
+
 void test("the history records each room crossed on the way back to the station", async () => {
   const states = new Map<string, unknown>([
     ["devices.Sky.history.events", "[]"],
@@ -311,6 +349,43 @@ void test("vacuum-first travel cannot report the whole job as finished", async (
   assert.deepEqual(writes, []);
 });
 
+void test("finishing a cleaning run preserves the last driving trail", async () => {
+  const points = [
+    { x: 100, y: 200 },
+    { x: 150, y: 250 },
+  ];
+  const projector = new StateProjector(
+    {
+      setStateAsync: (): Promise<void> => Promise.resolve(),
+    } as never,
+    new EventBus(),
+  );
+  const internal = projector as unknown as {
+    trails: Map<string, Array<{ x: number; y: number }>>;
+    cleaningActive: Set<string>;
+    latestSnapshots: Map<string, unknown>;
+    clearSelectedRooms(id: string): Promise<void>;
+    writeSnapshot(id: string, snapshot: unknown): Promise<void>;
+    finishTrail(id: string): Promise<void>;
+  };
+  internal.trails.set("robot", [...points]);
+  internal.cleaningActive.add("robot");
+  internal.latestSnapshots.set("robot", { mapId: "floor" });
+  internal.clearSelectedRooms = (): Promise<void> => Promise.resolve();
+
+  let displayedTrail: Array<{ x: number; y: number }> | undefined;
+  internal.writeSnapshot = (id): Promise<void> => {
+    displayedTrail = internal.trails.get(id)?.map((point) => ({ ...point }));
+    return Promise.resolve();
+  };
+
+  await internal.finishTrail("robot");
+
+  assert.equal(internal.cleaningActive.has("robot"), false);
+  assert.deepEqual(internal.trails.get("robot"), points);
+  assert.deepEqual(displayedTrail, points);
+});
+
 void test("room settings use the floor selected for display", () => {
   const projector = new StateProjector({} as never, new EventBus());
   const internal = projector as unknown as {
@@ -387,6 +462,106 @@ void test("the displayed floor map keeps the custom area draggable", async () =>
     html,
     /data-state-id="ecovacs-deebot2\.0\.devices\.Sky\.customArea\.values"/,
   );
+});
+
+void test("restoring a cached map also restores the saved driving trail", async () => {
+  const trail = [
+    { x: 10, y: 20 },
+    { x: 30, y: 40 },
+  ];
+  const states = new Map<string, unknown>([
+    [
+      "devices.Luna.map.snapshot",
+      JSON.stringify({
+        robotId: "robot",
+        mapId: "ground",
+        revision: 1,
+        rooms: [],
+        robotPosition: null,
+        dockPosition: null,
+        svg: "",
+        updatedAt: new Date().toISOString(),
+      }),
+    ],
+    ["devices.Luna.map.trail", JSON.stringify(trail)],
+  ]);
+  const adapter = {
+    namespace: "ecovacs-deebot2.0",
+    config: {},
+    getStateAsync: (id: string): Promise<{ val: unknown }> =>
+      Promise.resolve({ val: states.get(id) }),
+    setStateAsync: (id: string, value: unknown): Promise<void> => {
+      states.set(id, value);
+      return Promise.resolve();
+    },
+    extendObjectAsync: async () => {},
+    log: { debug: () => {}, warn: () => {} },
+  };
+  const projector = new StateProjector(adapter as never, new EventBus());
+  const internal = projector as unknown as {
+    robotObjectIds: Map<string, string>;
+    trails: Map<string, { x: number; y: number }[]>;
+    restoreSnapshot(robotId: string, objectId: string): Promise<void>;
+    writeSnapshot(robotId: string, snapshot: unknown): Promise<void>;
+  };
+  internal.robotObjectIds.set("robot", "Luna");
+  internal.writeSnapshot = (robotId, _snapshot): Promise<void> => {
+    states.set(
+      "devices.Luna.map.trail",
+      JSON.stringify(internal.trails.get(robotId) ?? []),
+    );
+    return Promise.resolve();
+  };
+
+  await internal.restoreSnapshot("robot", "Luna");
+
+  assert.deepEqual(internal.trails.get("robot"), trail);
+  assert.deepEqual(
+    JSON.parse(String(states.get("devices.Luna.map.trail"))),
+    trail,
+  );
+});
+
+void test("invalid saved driving trails do not break map restoration", async () => {
+  for (const invalidTrail of ["{invalid-json", '[{"x":"bad","y":20}]']) {
+    const states = new Map<string, unknown>([
+      [
+        "devices.Luna.map.snapshot",
+        JSON.stringify({
+          robotId: "robot",
+          mapId: "ground",
+          revision: 1,
+          rooms: [],
+          robotPosition: null,
+          dockPosition: null,
+          svg: "",
+          updatedAt: new Date().toISOString(),
+        }),
+      ],
+      ["devices.Luna.map.trail", invalidTrail],
+    ]);
+    const adapter = {
+      getStateAsync: (id: string): Promise<{ val: unknown }> =>
+        Promise.resolve({ val: states.get(id) }),
+      log: { debug: () => {}, warn: () => {} },
+    };
+    const projector = new StateProjector(adapter as never, new EventBus());
+    const internal = projector as unknown as {
+      trails: Map<string, { x: number; y: number }[]>;
+      restoreSnapshot(robotId: string, objectId: string): Promise<void>;
+      writeSnapshot(robotId: string, snapshot: unknown): Promise<void>;
+    };
+    let mapRestored = false;
+    internal.writeSnapshot = (): Promise<void> => {
+      mapRestored = true;
+      return Promise.resolve();
+    };
+
+    await internal.restoreSnapshot("robot", "Luna");
+
+    assert.equal(mapRestored, true);
+    assert.equal(internal.trails.has("robot"), false);
+  }
 });
 
 void test("Ecovacs device classes resolve to readable model names", () => {

@@ -1880,6 +1880,36 @@ export class StateProjector {
             ? value.updatedAt
             : new Date().toISOString(),
       };
+      if (!this.cleaningActive.has(robotId) && !this.trails.has(robotId)) {
+        const trailState = await this.adapter.getStateAsync(
+          `devices.${objectId}.map.trail`,
+        );
+        if (typeof trailState?.val === "string") {
+          try {
+            const parsed: unknown = JSON.parse(trailState.val);
+            if (
+              Array.isArray(parsed) &&
+              parsed.length <= 1500 &&
+              parsed.every(
+                (point) =>
+                  point !== null &&
+                  typeof point === "object" &&
+                  Number.isFinite(point.x) &&
+                  Number.isFinite(point.y),
+              )
+            ) {
+              this.trails.set(
+                robotId,
+                parsed.map((point) => ({ x: point.x, y: point.y })),
+              );
+            }
+          } catch {
+            this.adapter.log.debug(
+              `Ignoring invalid saved trail for ${objectId}`,
+            );
+          }
+        }
+      }
       this.latestSnapshots.set(robotId, snapshot);
       await this.writeSnapshot(robotId, snapshot);
       this.adapter.log.debug(`Restored cached map for ${objectId}`);
@@ -2114,10 +2144,18 @@ export class StateProjector {
         this.commandedRoomIds.delete(robotId);
       }
       this.events.emit("robot:command", { robotId, command });
-      if (command.type === "cleanRooms" || command.type === "cleanAll") {
+      if (
+        command.type === "cleanRooms" ||
+        command.type === "cleanAll" ||
+        command.type === "cleanCustomArea"
+      ) {
         await this.startLocalCleaningRun(
           robotId,
-          command.type === "cleanRooms" ? "spot_area" : "cleaning",
+          command.type === "cleanRooms"
+            ? "spot_area"
+            : command.type === "cleanCustomArea"
+              ? "custom_area"
+              : "cleaning",
         );
       }
       if (command.type === "charge") {
@@ -2734,9 +2772,7 @@ export class StateProjector {
           coordinates,
           repetitions: await this.getRepetitions(objectId),
         });
-        if (started) {
-          await this.startLocalCleaningRun(robotId, "custom_area");
-        } else {
+        if (!started) {
           this.lastCustomAreaStarts.delete(robotId);
         }
       } else {
@@ -4034,7 +4070,6 @@ export class StateProjector {
     this.sequentialCleaningPhase.delete(robotId);
     this.finalWaterDrainReported.delete(robotId);
     this.waterCycleActive.delete(robotId);
-    this.trails.delete(robotId);
     this.currentRooms.delete(robotId);
     if (this.robotObjectIds.has(robotId)) {
       const customArea = this.customAreas.get(robotId) ?? {
