@@ -400,8 +400,14 @@ class VacBot {
     }
 
     handleZeroVirtualBoundariesForMap(mapID) {
+        const hasPendingRequest = this.mapDataObjectQueue.some(item =>
+            item.mapID === mapID && item.type === 'GetVirtualBoundaries'
+        );
+        if (!hasPendingRequest) {
+            return;
+        }
         this.mapDataObjectQueue = this.mapDataObjectQueue.filter(item => {
-            return !((item.mapID === mapID) && (item.type === 'GetVirtualBoundaries'));
+            return !(item.mapID === mapID && item.type === 'GetVirtualBoundaries');
         });
         this.handleMapDataReady();
     }

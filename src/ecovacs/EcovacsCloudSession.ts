@@ -40,6 +40,7 @@ function apiValueToString(value: unknown, fallback = ""): string {
 }
 
 interface VacBotLike {
+  timerService?: TimerService;
   ecovacs?: {
     handleMessage?: (topic: string, payload: unknown, type?: string) => void;
     disconnect?: () => unknown;
@@ -479,6 +480,7 @@ export class VacBotTransport implements RobotTransport {
     private readonly timers: TimerService,
   ) {
     this.warn = warn ?? (() => {});
+    this.vacbot.timerService = this.timers;
     this.guardProtocolDisconnect();
     this.ignoreMalformedXmlMessages();
     this.listen("MapDataObject", (value) => {
