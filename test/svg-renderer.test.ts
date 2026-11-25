@@ -430,4 +430,6 @@ void test("live cleaning trail follows map coordinates", () => {
   assert.match(svg, /class="cleaning-trail"/);
   assert.match(svg, /points="10,-20 40,-50 80,-70"/);
   assert.match(svg, /stroke="#ff3b30"/);
+  assert.match(svg, /stroke-width="1\.5"/);
+  assert.match(svg, /stroke-opacity="0\.65"/);
 });

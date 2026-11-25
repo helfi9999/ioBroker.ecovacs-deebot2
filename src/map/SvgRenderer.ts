@@ -295,7 +295,7 @@ export class SvgRenderer {
     const values = points
       .map((point) => `${this.n(point.x)},${this.n(-point.y)}`)
       .join(" ");
-    return `<polyline class="cleaning-trail" points="${values}" fill="none" stroke="#ff3b30" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" pointer-events="none"/>`;
+    return `<polyline class="cleaning-trail" points="${values}" fill="none" stroke="#ff3b30" stroke-width="1.5" stroke-opacity="0.65" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" pointer-events="none"/>`;
   }
 
   private robot(
