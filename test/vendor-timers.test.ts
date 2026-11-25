@@ -12,9 +12,7 @@ const ecovacsRequire = createRequire(
 );
 
 void test("legacy XMPP clears its ping interval on disconnect", async () => {
-  const Protocol = ecovacsRequire(
-    "./library/non950type/ecovacsXMPP_XML",
-  );
+  const Protocol = ecovacsRequire("./library/non950type/ecovacsXMPP_XML");
 
   const protocol = Object.create(Protocol.prototype);
   let connected = false;
@@ -61,9 +59,7 @@ void test("legacy map timeout completes pending virtual boundaries", async () =>
 
   Object.assign(bot, {
     mapDataObject: [{ mapID: "test-map" }],
-    mapDataObjectQueue: [
-      { type: "GetSpotAreas", mapID: "test-map" },
-    ],
+    mapDataObjectQueue: [{ type: "GetSpotAreas", mapID: "test-map" }],
     ecovacs: {
       emit: (event: string) => {
         if (event === "MapDataReady") {
