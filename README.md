@@ -69,6 +69,13 @@ npm run pack:adapter
 See [publication preparation](docs/PUBLISHING.md) for the remaining release requirements.
 
 ## Changelog
+### 0.10.114 (2026-11-22)
+
+- Preserve the driving trail after cleaning finishes.
+- Restore saved driving trails after adapter restarts.
+- Improve trail tracking when starting custom-area cleaning.
+- Add regression tests for trail persistence and invalid saved trails.
+
 ### 0.10.113 (2026-11-19)
 
 - Correct the ioBroker news history to list published versions only.

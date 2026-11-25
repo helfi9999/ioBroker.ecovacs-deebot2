@@ -58,6 +58,19 @@
     ],
     "icon": "ecovacs-deebot2.png",
     "news": {
+      "0.10.114": {
+        "en": "Preserve the driving trail after cleaning finishes. Restore saved trails after adapter restarts. Improve trail tracking when starting custom-area cleaning.",
+        "de": "Die Fahrspur bleibt nach Reinigungsende erhalten. Gespeicherte Fahrspuren werden nach Adapter-Neustarts wiederhergestellt. Die Aufzeichnung beim Start einer Bereichsreinigung wurde verbessert.",
+        "ru": "Сохраняется маршрут после завершения уборки и восстанавливается после перезапуска адаптера. Улучшено отслеживание маршрута при уборке выбранной области.",
+        "pt": "Preserva o percurso após a limpeza e restaura-o após reiniciar o adaptador. Melhora o registo do percurso na limpeza de áreas personalizadas.",
+        "nl": "Behoudt het rijspoor na het reinigen en herstelt het na een adapterherstart. Verbetert de registratie bij aangepaste gebiedsreiniging.",
+        "fr": "Conserve le trajet après le nettoyage et le restaure après un redémarrage de l'adaptateur. Améliore le suivi lors du nettoyage d'une zone personnalisée.",
+        "it": "Conserva il percorso dopo la pulizia e lo ripristina dopo il riavvio dell'adattatore. Migliora il tracciamento durante la pulizia di aree personalizzate.",
+        "es": "Conserva el recorrido al finalizar la limpieza y lo restaura tras reiniciar el adaptador. Mejora el seguimiento al limpiar áreas personalizadas.",
+        "pl": "Zachowuje trasę po zakończeniu sprzątania i przywraca ją po restarcie adaptera. Usprawnia śledzenie podczas sprzątania wybranego obszaru.",
+        "uk": "Зберігає маршрут після завершення прибирання та відновлює його після перезапуску адаптера. Покращено відстеження під час прибирання вибраної ділянки.",
+        "zh-cn": "清扫结束后保留行驶轨迹，并在适配器重启后恢复。改进自定义区域清扫时的轨迹记录。"
+      },
       "0.10.113": {
         "en": "Correct the ioBroker news history to list published versions only.\nUse compatible SemVer ranges for 14 runtime dependencies.\nUpdate release and dependency-security documentation.\nVerify 62 adapter tests, 61 package checks and a clean npm audit.",
         "de": "Korrigieren Sie den ioBroker News History und listet nur Versionen auf.\nNutze kompatible SemVer-Ranges für 14 Laufzeitabhängigkeiten.\nUpdate und Dokumentation zur Absicherung.\nVerifiziere 62 Adaptertests, 61 Pakettests und NPM.",
