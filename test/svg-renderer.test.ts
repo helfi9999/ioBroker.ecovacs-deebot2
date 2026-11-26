@@ -432,4 +432,14 @@ void test("live cleaning trail follows map coordinates", () => {
   assert.match(svg, /stroke="#ff3b30"/);
   assert.match(svg, /stroke-width="1\.5"/);
   assert.match(svg, /stroke-opacity="0\.65"/);
+  const roomIndex = svg.indexOf('<g class="rooms">');
+  const trailIndex = svg.indexOf('<polyline class="cleaning-trail"');
+  const labelsIndex = svg.indexOf('<g class="room-labels">');
+  const markerIndex = svg.indexOf('<g class="markers">');
+
+  assert.ok(roomIndex >= 0);
+  assert.ok(roomIndex < trailIndex);
+  assert.ok(trailIndex < labelsIndex);
+  assert.ok(labelsIndex < markerIndex);
+  assert.match(svg, /pointer-events="none">Wohnzimmer<\/text>/);
 });

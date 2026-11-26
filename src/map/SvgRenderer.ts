@@ -112,13 +112,7 @@ export class SvgRenderer {
     }
     const rooms = [...groupedRooms.entries()]
       .map(([key, group]) =>
-        this.roomGroup(
-          group,
-          colorIndexes.get(key) ?? 0,
-          angle,
-          labelScale,
-          options,
-        ),
+        this.roomGroup(group, colorIndexes.get(key) ?? 0, options),
       )
       .join("");
     const dock = input.dockPosition
@@ -134,20 +128,21 @@ export class SvgRenderer {
       : "";
     const customArea = this.customArea(options.customArea, baseMarkerSize);
     const trail = this.trail(options.trail);
+    const labels = [...groupedRooms.values()]
+      .map((group) => this.roomLabel(group, angle, labelScale))
+      .join("");
     const svgTouchStyle = options.customArea?.active
       ? ";touch-action:none;overscroll-behavior:contain;-webkit-user-select:none;user-select:none"
       : "";
     return (
       `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="${this.n(viewX)} ${this.n(viewY)} ${this.n(viewWidth)} ${this.n(viewHeight)}" preserveAspectRatio="xMidYMid meet" style="display:block${svgTouchStyle}" role="img" aria-label="Karte ${this.escape(input.mapId)}" data-robot-id="${this.escape(input.robotId)}" data-map-id="${this.escape(input.mapId)}" data-rotation="${angle}" data-flip-y="true">` +
-      `<g class="map-content" transform="rotate(${angle} ${this.n(centerX)} ${this.n(centerY)})"><g class="rooms">${rooms}</g>${customArea}${trail}<g class="markers">${dock}${robot}</g></g></svg>`
+      `<g class="map-content" transform="rotate(${angle} ${this.n(centerX)} ${this.n(centerY)})"><g class="rooms">${rooms}</g>${customArea}${trail}<g class="room-labels">${labels}</g><g class="markers">${dock}${robot}</g></g></svg>`
     );
   }
 
   private roomGroup(
     rooms: Room[],
     colorIndex: number,
-    rotation: number,
-    labelScale: number,
     options: SvgRenderOptions,
   ): string {
     const drawable = rooms.filter((room) => room.polygon.length >= 3);
@@ -155,10 +150,6 @@ export class SvgRenderer {
       return "";
     }
     const grouped = drawable.length > 1 && Boolean(drawable[0].groupId);
-    const points = drawable.flatMap((room) => room.polygon);
-    const center = grouped
-      ? this.boundingCenter(points)
-      : (drawable[0].center ?? this.center(points));
     const displayName = grouped
       ? drawable[0].groupId!
       : drawable[0].displayName;
@@ -173,9 +164,6 @@ export class SvgRenderer {
       : "";
     const interaction = click
       ? ` style="cursor:pointer;pointer-events:auto" onclick="${this.escape(click)}"`
-      : "";
-    const label = center
-      ? `<text x="${this.n(center.x)}" y="${this.n(center.y)}" transform="rotate(${-rotation} ${this.n(center.x)} ${this.n(center.y)})" text-anchor="middle" dominant-baseline="middle" font-family="inherit" font-size="${this.n(labelScale)}em" font-style="inherit" font-weight="inherit" fill="currentColor" pointer-events="none">${this.escape(displayName)}</text>`
       : "";
     const paths = drawable
       .map((room) => {
@@ -193,7 +181,30 @@ export class SvgRenderer {
       })
       .join("");
     const roomIds = drawable.map((room) => room.id).join(",");
-    return `<g class="room${grouped ? " room-group" : ""}${selected ? " selected" : ""}" data-room-id="${this.escape(roomIds)}" data-room-name="${this.escape(displayName)}"${grouped ? ` data-room-group="${this.escape(displayName)}"` : ""}${interaction}>${paths}${label}</g>`;
+    return `<g class="room${grouped ? " room-group" : ""}${selected ? " selected" : ""}" data-room-id="${this.escape(roomIds)}" data-room-name="${this.escape(displayName)}"${grouped ? ` data-room-group="${this.escape(displayName)}"` : ""}${interaction}>${paths}</g>`;
+  }
+
+  private roomLabel(
+    rooms: Room[],
+    rotation: number,
+    labelScale: number,
+  ): string {
+    const drawable = rooms.filter((room) => room.polygon.length >= 3);
+    if (!drawable.length) {
+      return "";
+    }
+    const grouped = drawable.length > 1 && Boolean(drawable[0].groupId);
+    const points = drawable.flatMap((room) => room.polygon);
+    const center = grouped
+      ? this.boundingCenter(points)
+      : (drawable[0].center ?? this.center(points));
+    if (!center) {
+      return "";
+    }
+    const displayName = grouped
+      ? drawable[0].groupId!
+      : drawable[0].displayName;
+    return `<text x="${this.n(center.x)}" y="${this.n(center.y)}" transform="rotate(${-rotation} ${this.n(center.x)} ${this.n(center.y)})" text-anchor="middle" dominant-baseline="middle" font-family="inherit" font-size="${this.n(labelScale)}em" font-style="inherit" font-weight="inherit" fill="currentColor" pointer-events="none">${this.escape(displayName)}</text>`;
   }
 
   private clickScript(
