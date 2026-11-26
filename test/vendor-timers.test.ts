@@ -4,6 +4,7 @@
 
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { join } from "node:path";
 
@@ -90,4 +91,26 @@ void test("legacy map timeout completes pending virtual boundaries", async () =>
   // Verify that the original timer does not emit the event again.
   await new Promise<void>((resolve) => setTimeout(resolve, 600));
   assert.equal(readyCount, 1, "MapDataReady must not fire twice");
+});
+
+void test("GetCleanLogs handles rejected cloud requests", () => {
+  const vendorSource = readFileSync(
+    join(__dirname, "../../vendor/ecovacs-deebot/library/950type/vacBot.js"),
+    "utf8",
+  );
+
+  const start = vendorSource.indexOf("this.callCleanResultsLogsApi().then(");
+  assert.ok(start >= 0, "GetCleanLogs cloud request not found");
+
+  const end = vendorSource.indexOf(
+    "this.sendCommand(new VacBotCommand.GetCleanLogs())",
+    start,
+  );
+  assert.ok(end > start, "GetCleanLogs fallback not found");
+
+  assert.match(
+    vendorSource.slice(start, end),
+    /\.catch\(\(err\) =>/,
+    "Cloud request must handle rejected promises",
+  );
 });

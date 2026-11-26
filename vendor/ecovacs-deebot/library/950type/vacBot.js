@@ -1734,6 +1734,8 @@ class VacBot_950type extends VacBot {
                             'totalTimeFormatted': this.cleanLog_lastTotalTimeString,
                             'imageUrl': this.cleanLog_lastImageUrl
                         });
+                    }).catch((err) => {
+                        tools.envLogInfo(`[EcoVacsAPI] GetCleanLogs failed: ${err}`);
                     });
                 } else {
                     this.sendCommand(new VacBotCommand.GetCleanLogs());
