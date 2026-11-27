@@ -126,6 +126,7 @@ class VacBot {
         this.mapDataObject = null;
         this.mapDataObjectQueue = [];
         this.mapImageDataQueue = [];
+        this.mapTimeouts = new Set();
 
         this.schedule = [];
 
@@ -308,9 +309,18 @@ class VacBot {
             'type': 'GetVirtualBoundaries',
             'mapID': mapID
         });
-        setTimeout(()=> {
-            this.handleZeroVirtualBoundariesForMap(mapID);
-        }, this.mapDataObject.length * 500);
+        if (this.timerService) {
+            const timer = this.timerService.setTimeout(() => {
+                if (!this.mapTimeouts.has(timer)) {
+                    return;
+                }
+                this.mapTimeouts.delete(timer);
+                this.handleZeroVirtualBoundariesForMap(mapID);
+            }, this.mapDataObject.length * 500);
+            if (timer !== undefined) {
+                this.mapTimeouts.add(timer);
+            }
+        }
     }
 
     /**
@@ -1128,6 +1138,12 @@ class VacBot {
      * Disconnect from MQTT server (fully async)
      */
     async disconnectAsync() {
+        if (this.timerService) {
+            for (const timer of this.mapTimeouts) {
+                this.timerService.clearTimeout(timer);
+            }
+        }
+        this.mapTimeouts.clear();
         try {
             await this.ecovacs.disconnect();
             this.is_ready = false;

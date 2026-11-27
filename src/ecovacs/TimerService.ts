@@ -16,13 +16,16 @@ export interface TimerService {
    * @param delay - Delay in milliseconds.
    * @returns Timer handle, or undefined if scheduling is unavailable.
    */
-  setTimeout(callback: () => void, delay: number): ioBroker.Timeout | undefined;
+  setTimeout: (
+    callback: () => void,
+    delay: number,
+  ) => ioBroker.Timeout | undefined;
   /**
    * Cancels a previously scheduled timeout.
    *
    * @param timer - Timeout handle to cancel.
    */
-  clearTimeout(timer: ioBroker.Timeout | undefined): void;
+  clearTimeout: (timer: ioBroker.Timeout | undefined) => void;
   /**
    * Schedules a callback to run repeatedly.
    *
@@ -30,14 +33,14 @@ export interface TimerService {
    * @param delay - Interval in milliseconds.
    * @returns Timer handle, or undefined if scheduling is unavailable.
    */
-  setInterval(
+  setInterval: (
     callback: () => void,
     delay: number,
-  ): ioBroker.Interval | undefined;
+  ) => ioBroker.Interval | undefined;
   /**
    * Cancels a previously scheduled interval.
    *
    * @param timer - Interval handle to cancel.
    */
-  clearInterval(timer: ioBroker.Interval | undefined): void;
+  clearInterval: (timer: ioBroker.Interval | undefined) => void;
 }

@@ -26,6 +26,26 @@ void test("legacy XMPP clears its ping interval on disconnect", async () => {
   protocol.serverAddress = "localhost";
   protocol.serverPort = 5223;
   protocol.pingInterval = null;
+
+  const timerHandle = { id: "xmpp-test-timer" };
+  let intervalStarted = false;
+  let intervalCleared = false;
+
+  protocol.vacBot = {
+    timerService: {
+      setInterval: (callback: () => void, delay: number) => {
+        assert.equal(typeof callback, "function");
+        assert.equal(delay, 30000);
+        intervalStarted = true;
+        return timerHandle;
+      },
+      clearInterval: (timer: unknown) => {
+        assert.equal(timer, timerHandle);
+        intervalCleared = true;
+      },
+    },
+  };
+
   protocol.simpleXmpp = {
     connect: () => {
       connected = true;
@@ -39,15 +59,17 @@ void test("legacy XMPP clears its ping interval on disconnect", async () => {
     protocol.connect();
 
     assert.equal(connected, true);
-    assert.ok(protocol.pingInterval, "Ping interval should be started");
+    assert.equal(intervalStarted, true);
+    assert.equal(protocol.pingInterval, timerHandle);
 
     await protocol.disconnect();
 
     assert.equal(disconnected, true);
+    assert.equal(intervalCleared, true);
     assert.equal(protocol.pingInterval, null);
   } finally {
     if (protocol.pingInterval) {
-      clearInterval(protocol.pingInterval);
+      protocol.vacBot.timerService.clearInterval(protocol.pingInterval);
     }
   }
 });
@@ -57,16 +79,32 @@ void test("legacy map timeout completes pending virtual boundaries", async () =>
   const bot = Object.create(VacBot.prototype);
   let readyCount = 0;
   const commands: string[] = [];
+  const scheduled = new Map<object, () => void>();
+
+  const timerService = {
+    setTimeout: (callback: () => void, delay: number) => {
+      assert.equal(delay, 500);
+      const handle = {};
+      scheduled.set(handle, callback);
+      return handle;
+    },
+    clearTimeout: (handle: object) => {
+      scheduled.delete(handle);
+    },
+  };
 
   Object.assign(bot, {
     mapDataObject: [{ mapID: "test-map" }],
     mapDataObjectQueue: [{ type: "GetSpotAreas", mapID: "test-map" }],
+    mapTimeouts: new Set(),
+    timerService,
     ecovacs: {
       emit: (event: string) => {
         if (event === "MapDataReady") {
           readyCount++;
         }
       },
+      disconnect: async () => {},
     },
     run: (command: string) => {
       commands.push(command);
@@ -81,16 +119,77 @@ void test("legacy map timeout completes pending virtual boundaries", async () =>
   assert.deepEqual(commands, ["GetVirtualBoundaries"]);
   assert.equal(readyCount, 0);
   assert.equal(bot.mapDataObjectQueue.length, 1);
+  assert.equal(scheduled.size, 1);
+  assert.equal(bot.mapTimeouts.size, 1);
 
-  // Exercise the timeout callback's target without waiting 500 ms.
-  bot.handleZeroVirtualBoundariesForMap("test-map");
+  const callback = [...scheduled.values()][0];
+  callback();
 
   assert.equal(bot.mapDataObjectQueue.length, 0);
   assert.equal(readyCount, 1);
+  assert.equal(bot.mapTimeouts.size, 0);
 
-  // Verify that the original timer does not emit the event again.
-  await new Promise<void>((resolve) => setTimeout(resolve, 600));
-  assert.equal(readyCount, 1, "MapDataReady must not fire twice");
+  await bot.disconnectAsync();
+  assert.equal(scheduled.size, 1);
+  assert.equal(readyCount, 1);
+});
+
+void test("legacy map timeout is cancelled on disconnect", async () => {
+  const VacBot = ecovacsRequire("./library/vacBot");
+  const bot = Object.create(VacBot.prototype);
+  const scheduled = new Map<object, () => void>();
+  let disconnected = false;
+  let readyCount = 0;
+
+  Object.assign(bot, {
+    mapDataObject: [{ mapID: "test-map" }],
+    mapDataObjectQueue: [{ type: "GetSpotAreas", mapID: "test-map" }],
+    mapTimeouts: new Set(),
+    timerService: {
+      setTimeout: (callback: () => void) => {
+        const handle = {};
+        scheduled.set(handle, callback);
+        return handle;
+      },
+      clearTimeout: (handle: object) => {
+        scheduled.delete(handle);
+      },
+    },
+    ecovacs: {
+      emit: (event: string) => {
+        if (event === "MapDataReady") {
+          readyCount++;
+        }
+      },
+      disconnect: () => {
+        disconnected = true;
+        return Promise.resolve();
+      },
+    },
+    run: () => {},
+  });
+
+  await bot.handleMapSpotAreasEvent({
+    mapID: "test-map",
+    mapSpotAreas: {},
+  });
+
+  assert.equal(scheduled.size, 1);
+
+  // Simulate a callback already queued before the timer was cancelled.
+  const delayedCallback = [...scheduled.values()][0];
+
+  await bot.disconnectAsync();
+
+  assert.equal(disconnected, true);
+  assert.equal(scheduled.size, 0);
+  assert.equal(bot.mapTimeouts.size, 0);
+  assert.equal(readyCount, 0);
+
+  delayedCallback();
+
+  assert.equal(readyCount, 0);
+  assert.equal(bot.mapDataObjectQueue.length, 1);
 });
 
 void test("GetCleanLogs handles rejected cloud requests", () => {

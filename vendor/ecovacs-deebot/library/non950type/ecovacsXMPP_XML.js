@@ -93,9 +93,12 @@ class EcovacsXMPP_XML extends Ecovacs {
         });
 
         if (!this.pingInterval) {
-            this.pingInterval = setInterval(() => {
-                this.sendPing();
-            }, 30000);
+            const timers = this.vacBot.timerService;
+            if (timers) {
+                this.pingInterval = timers.setInterval(() => {
+                    this.sendPing();
+                }, 30000);
+            }
         }
 
         this.on('ready', () => {
@@ -170,7 +173,9 @@ class EcovacsXMPP_XML extends Ecovacs {
     async disconnect() {
         tools.envLog("[EcovacsXMPP_XML] Disconnect from the XMPP server");
         this.simpleXmpp.disconnect();
-        clearInterval(this.pingInterval);
+        if (this.pingInterval && this.vacBot.timerService) {
+            this.vacBot.timerService.clearInterval(this.pingInterval);
+        }
         this.pingInterval = null;
     }
 }
