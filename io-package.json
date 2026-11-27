@@ -100,8 +100,7 @@
     },
     "licenseInformation": {
       "type": "free",
-      "license": "GPL-3.0-only",
-      "link": "https://www.gnu.org/licenses/gpl-3.0.html"
+      "license": "GPL-3.0-only"
     },
     "keywords": [
       "ecovacs",
