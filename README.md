@@ -69,6 +69,14 @@ npm run pack:adapter
 See [publication preparation](docs/PUBLISHING.md) for the remaining release requirements.
 
 ## Changelog
+### **WORK IN PROGRESS**
+
+- Fix cloud log retrieval failures when Ecovacs returns HTTP 502.
+- Limit MQTT shutdown time to prevent the adapter from hanging during shutdown.
+- Manage vendor timers through the ioBroker adapter for reliable cleanup.
+- Improve cloud session timer integration.
+- Update GitHub Actions concurrency and ioBroker license metadata.
+
 ### 0.10.114 (2026-11-22)
 
 - Preserve the driving trail after cleaning finishes.
