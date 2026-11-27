@@ -253,3 +253,129 @@ void test("MQTT cleanup forces socket closure when ioBroker cannot create a clea
   assert.equal(protocol.listenerCount("closed"), 0);
   assert.ok(warnings.some((message) => /cleanup timed out/.test(message)));
 });
+
+void test("MQTT disconnect completes without forcing socket close", async () => {
+  const { transport, protocol } = createTransport(() => {});
+  let forcedClose = false;
+
+  Object.assign(transport, {
+    vacbot: {
+      ecovacs: Object.assign(protocol, {
+        client: {
+          end: () => {
+            forcedClose = true;
+          },
+        },
+      }),
+      getProtocol: () => "MQTT",
+      disconnectAsync: async () => {},
+    },
+  });
+
+  await transport.disconnect();
+  assert.equal(forcedClose, false);
+});
+
+void test("MQTT disconnect timeout forces socket close", async () => {
+  const { transport, protocol } = createTransport(() => {});
+  let forcedClose = false;
+  const warnings: string[] = [];
+
+  Object.assign(transport, {
+    warn: (message: string) => warnings.push(message),
+    timers: {
+      ...testTimerService,
+      setTimeout: (callback: () => void) => {
+        queueMicrotask(callback);
+        return undefined;
+      },
+    },
+    vacbot: {
+      ecovacs: Object.assign(protocol, {
+        client: {
+          end: (force: boolean) => {
+            forcedClose = force;
+          },
+        },
+      }),
+      getProtocol: () => "MQTT",
+      disconnectAsync: () => new Promise<void>(() => {}),
+    },
+  });
+
+  await transport.disconnect();
+  assert.equal(forcedClose, true);
+  assert.match(warnings.join(" "), /MQTT disconnect timed out/);
+});
+
+void test("MQTT forced-close failure does not reject disconnect", async () => {
+  const { transport, protocol } = createTransport(() => {});
+  const warnings: string[] = [];
+
+  Object.assign(transport, {
+    warn: (message: string) => warnings.push(message),
+    timers: {
+      ...testTimerService,
+      setTimeout: () => undefined,
+    },
+    vacbot: {
+      ecovacs: Object.assign(protocol, {
+        client: {
+          end: () => {
+            throw new Error("Socket close failed");
+          },
+        },
+      }),
+      getProtocol: () => "MQTT",
+      disconnectAsync: () => new Promise<void>(() => {}),
+    },
+  });
+
+  await transport.disconnect();
+  assert.match(warnings.join(" "), /Socket close failed/);
+});
+
+void test("MQTT disconnect registered timeout forces socket close", async () => {
+  const { transport, protocol } = createTransport(() => {});
+  let timeoutCallback: (() => void) | undefined;
+  let timeoutDelay: number | undefined;
+  let timeoutCleared = false;
+  let forcedClose = false;
+
+  Object.assign(transport, {
+    warn: () => {},
+    timers: {
+      ...testTimerService,
+      setTimeout: (callback: () => void, delay: number) => {
+        timeoutCallback = callback;
+        timeoutDelay = delay;
+        return 1 as unknown as ioBroker.Timeout;
+      },
+      clearTimeout: () => {
+        timeoutCleared = true;
+      },
+    },
+    vacbot: {
+      ecovacs: Object.assign(protocol, {
+        client: {
+          end: (force: boolean) => {
+            forcedClose = force;
+          },
+        },
+      }),
+      getProtocol: () => "MQTT",
+      disconnectAsync: () => new Promise<void>(() => {}),
+    },
+  });
+
+  const pending = transport.disconnect();
+
+  assert.equal(timeoutDelay, 1000);
+  assert.ok(timeoutCallback);
+
+  timeoutCallback();
+  await pending;
+
+  assert.equal(forcedClose, true);
+  assert.equal(timeoutCleared, true);
+});

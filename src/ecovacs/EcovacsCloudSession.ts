@@ -896,10 +896,48 @@ export class VacBotTransport implements RobotTransport {
       this.timers.clearTimeout(this.settingsRefreshTimer);
     }
     this.settingsRefreshTimer = undefined;
-    if (this.vacbot.disconnectAsync) {
-      await this.vacbot.disconnectAsync();
-    } else {
-      await this.vacbot.disconnect?.();
+    const disconnect = this.vacbot.disconnectAsync
+      ? () => this.vacbot.disconnectAsync!()
+      : () => this.vacbot.disconnect?.();
+
+    if (this.vacbot.getProtocol?.() !== "MQTT") {
+      await disconnect();
+      return;
+    }
+
+    let timeout: ioBroker.Timeout | undefined;
+    let timedOut = false;
+
+    try {
+      await Promise.race([
+        Promise.resolve().then(disconnect),
+        new Promise<void>((resolve) => {
+          timeout = this.timers.setTimeout(() => {
+            timedOut = true;
+            resolve();
+          }, 1000);
+
+          if (timeout === undefined) {
+            timedOut = true;
+            resolve();
+          }
+        }),
+      ]);
+
+      if (timedOut) {
+        this.warn("MQTT disconnect timed out; forcing socket close");
+        try {
+          this.vacbot.ecovacs?.client?.end(true);
+        } catch (error) {
+          this.warn(
+            `MQTT forced close failed: ${error instanceof Error ? error.message : String(error)}`,
+          );
+        }
+      }
+    } finally {
+      if (timeout !== undefined) {
+        this.timers.clearTimeout(timeout);
+      }
     }
   }
 
