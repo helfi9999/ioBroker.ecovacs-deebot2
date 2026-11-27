@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "ecovacs-deebot2",
-    "version": "0.10.114",
+    "version": "0.10.115",
     "titleLang": {
       "en": "Ecovacs Deebot 2",
       "de": "Ecovacs Deebot 2",
@@ -58,6 +58,19 @@
     ],
     "icon": "ecovacs-deebot2.png",
     "news": {
+      "0.10.115": {
+        "en": "Fix cloud log retrieval failures when Ecovacs returns HTTP 502.\nLimit MQTT shutdown time to prevent the adapter from hanging during shutdown.\nManage vendor timers through the ioBroker adapter for reliable cleanup.\nImprove cloud session timer integration.\nUpdate GitHub Actions concurrency and ioBroker license metadata.",
+        "de": "Behebung von Cloud-Logs, wenn Ecovacs HTTP 502 zurückgibt.\nBegrenzen Sie die MQTT-Zeit, damit der Adapter nicht hängen bleibt.\nZuverlässige Verwaltung von Lieferantentimern über den ioBroker-Adapter.\nVerbessern Sie den Cloud-Sitzungstimer.\nAktualisiere GitHub Actions und ioBroker-Lizenzmetadaten.",
+        "ru": "Исправьте ошибки при извлечении журналов в облаке, когда Ecovacs возвращает HTTP 502.\nОграничьте время выключения MQTT, чтобы адаптер не зависал во время выключения.\nУправляйте таймерами поставщиков с помощью адаптера IOBroker для надежной очистки.\nУлучшите интеграцию таймера облачных сеансов.\nОбновите параллелизм действий GitHub и метаданные лицензии IOBroker.",
+        "pt": "Corrija falhas de log na nuvem quando o Ecovacs retorna HTTP 502.\nLimite o tempo de desligamento do MQTT para evitar que o adaptador pare.\nGerencie os temporizadores com o adaptador IOBroker para uma limpeza confiável.\nMelhore a integração do timer na nuvem.\nAtualize os metadados simultâneos e da licença IOBroker do GitHub Actions.",
+        "nl": "Fouten bij het ophalen van logboeken in de cloud herstellen wanneer Ecovacs HTTP 502 retourneert.\nBeperk de uitschakeltijd van de MQTT om te voorkomen dat de adapter blijft hangen tijdens de uitschakeling.\nBeheer de timers van leveranciers via de ioBroker-adapter voor betrouwbare opruiming.\nVerbeter de integratie van sessietimer in de cloud.\nDe gelijktijdigheid van GitHub Actions en de metagegevens van de IOBroker-licentie bijwerken.",
+        "fr": "Corrigez les erreurs de récupération du journal sur le cloud par Ecovacs en HTTP 502.\nLimitez le temps d'arrêt du MQTT pour éviter que l'adaptateur ne se bloque.\nGérez les délais des fournisseurs grâce à l'adaptateur ioBroker pour un nettoyage fiable.\nAméliorez l'intégration du Cloud Session Timer.\nMettez à jour la simultanéité de GitHub Actions et la licence IObroker.",
+        "it": "Risolve gli errori di recupero dei log su Ecovacs HTTP 502.\nLimita il tempo di spegnimento MQTT per evitare che l'adattatore si blocchi.\nGestisca i timer con l'adattatore IOBroker per una pulizia sicura.\nMigliora l'integrazione del timer nel cloud.\nAggiorna i metadati di concorrenza e licenza IOBroker di GitHub Actions.",
+        "es": "Corregir errores en la nube cuando Ecovacs devuelve HTTP 502.\nLimite el tiempo de apagado de MQTT para evitar que el adaptador se cuelgue.\nGestione los temporizadores con el adaptador ioBroker para una limpieza fiable.\nMejore la integración del temporizador de sesión en la nube\nActualice los metadatos de licencia de GitHub Actions e IOBroker.",
+        "pl": "Napraw błędy pobierania dziennika w chmurze, gdy Ecovacs zwraca HTTP 502.\nOgranicz czas wyłączania MQTT, aby zapobiec zawieszeniu się adaptera podczas wyłączania.\nZarządzaj timerami dostawców za pomocą adaptera ioBroker, aby zapewnić niezawodne czyszczenie.\nPopraw integrację timera sesji w chmurze.\nZaktualizuj współbieżność operacji GitHub i metadane licencji ioBroker.",
+        "uk": "Виправлено помилки пошуку хмарних журналів, коли Ecovacs повертає HTTP 502.\nОбмежте час відключення MQTT, щоб запобігти зависання адаптера під час відключення.\nКеруйте таймерами постачальників за допомогою адаптера IObroker для надійного очищення.\nПокращення інтеграції таймера сеансу в хмарі.\nОновіть паралельність дій GitHub та метадані ліцензії IObroker.",
+        "zh-cn": "修复 Ecovacs 返回 HTTP 502 时云日志检索失败的问题。\n限制 MQTT 关闭时间，以防止适配器在关机期间挂起。\n通过 IOBroker 适配器管理供应商计时器，实现可靠的清理。\n改进云会话计时器集成。\n更新 GitHub Actions 并发和 IOBroker 许可证元数据。"
+      },
       "0.10.114": {
         "en": "Preserve the driving trail after cleaning finishes. Restore saved trails after adapter restarts. Improve trail tracking when starting custom-area cleaning.",
         "de": "Die Fahrspur bleibt nach Reinigungsende erhalten. Gespeicherte Fahrspuren werden nach Adapter-Neustarts wiederhergestellt. Die Aufzeichnung beim Start einer Bereichsreinigung wurde verbessert.",

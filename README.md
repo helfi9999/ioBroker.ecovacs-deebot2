@@ -69,7 +69,7 @@ npm run pack:adapter
 See [publication preparation](docs/PUBLISHING.md) for the remaining release requirements.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.10.115 (2026-11-27)
 
 - Fix cloud log retrieval failures when Ecovacs returns HTTP 502.
 - Limit MQTT shutdown time to prevent the adapter from hanging during shutdown.
