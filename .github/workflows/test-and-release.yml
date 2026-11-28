@@ -21,14 +21,10 @@ jobs:
   check-and-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: ioBroker/testing-action-check@v2
         with:
           node-version: "22.x"
-          cache: npm
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run test:package
+          lint: "true"
 
   adapter-tests:
     needs: check-and-lint
@@ -39,30 +35,11 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         node: [22, 24, 26]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: ioBroker/testing-action-adapter@v1
         with:
           node-version: ${{ matrix.node }}
-          cache: npm
-      - run: npm ci
-      - run: npm test
-      - run: npm run test:integration
-      - name: Diagnose integration test installation
-        if: failure()
-        shell: bash
-        run: |
-          TEST_DIR="$(node -p 'require("node:path").join(require("node:os").tmpdir(), "test-iobroker.ecovacs-deebot2")')"
-          echo "=== Test directory: $TEST_DIR ==="
-          ls -la "$TEST_DIR" 2>&1 || true
-          echo "=== Installed adapter ==="
-          ls -la "$TEST_DIR/node_modules/iobroker.ecovacs-deebot2" 2>&1 || true
-          echo "=== Adapter metadata ==="
-          cat "$TEST_DIR/node_modules/iobroker.ecovacs-deebot2/package.json" 2>&1 || true
-          echo "=== Installed controller ==="
-          ls -ld "$TEST_DIR/node_modules/iobroker.js-controller" 2>&1 || true
-          echo "=== Test package dependencies ==="
-          cat "$TEST_DIR/package.json" 2>&1 || true
-      - run: npm pack --dry-run
+          os: ${{ matrix.os }}
+          build: "true"
 
   deploy:
     if: >-
