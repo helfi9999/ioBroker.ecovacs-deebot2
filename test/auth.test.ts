@@ -75,7 +75,7 @@ void test("modern authenticator requests and completes e-mail device verificatio
         token: "session-token",
       });
     }
-    throw new Error(`Unexpected request ${url}`);
+    throw new Error(`Unexpected request ${url.toString()}`);
   };
   const auth = new ModernEcovacsAuthenticator(
     { deviceId: "A1B2C3D4", country: "de", continent: "eu" },
