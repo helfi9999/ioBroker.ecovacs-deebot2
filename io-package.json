@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "ecovacs-deebot2",
-    "version": "0.10.115",
+    "version": "0.10.116",
     "titleLang": {
       "en": "Ecovacs Deebot 2",
       "de": "Ecovacs Deebot 2",
@@ -58,6 +58,19 @@
     ],
     "icon": "ecovacs-deebot2.png",
     "news": {
+      "0.10.116": {
+        "en": "Use official ioBroker GitHub Actions for adapter checks and tests.\nAdd the standard test:unit command while preserving existing unit tests.\nImprove compatibility with the ioBroker repository checker.",
+        "de": "Nutze offizielle ioBroker GitHub Actions für Adaptertests.\nFügen Sie den Standardbefehl test:unit hinzu und behalten Sie die Tests bei.\nVerbessern Sie die Kompatibilität mit dem ioBroker Repository-Checker.",
+        "ru": "Используйте официальные действия IOBroker GitHub для проверок и тестов адаптеров.\nДобавьте стандартную команду test:unit, сохранив существующие модульные тесты.\nУлучшите совместимость с средством проверки репозитория IOBroker.",
+        "pt": "Use o IOBroker GitHub Actions oficial para checar adaptadores.\nAdicione o comando test:unit padrão preservando os testes atuais.\nMelhore a compatibilidade com o repositório IOBroker.",
+        "nl": "Gebruik de officiële GitHub-acties van IOBroker voor het controleren en testen van adapters.\nVoeg het standaardcommando test:unit toe met behoud van bestaande unit-tests.\nVerbeter de compatibiliteit met de ioBroker repository checker.",
+        "fr": "Utilisez les actions GitHub officielles d'IOBroker pour tester.\nAjoutez la commande standard test:unit tout en préservant les tests unitaires existants.\nAméliorez la compatibilité avec le vérificateur de dépôt IObroker.",
+        "it": "Usa GitHub Actions ufficiali di IOBroker per test e test.\nAggiunga il comando standard test:unit mantenendo gli unit test esistenti.\nMigliora la compatibilità con IOBroker Repository Checker.",
+        "es": "Use GitHub Actions oficiales de IOBroker para comprobar y probar adaptadores.\nAñada el comando test:unit estándar conservando las pruebas unitarias existentes.\nMejore la compatibilidad con el comprobador de repositorios de IOBroker.",
+        "pl": "Skorzystaj z oficjalnych operacji ioBroker GitHub do sprawdzania i testów adaptera.\nDodaj standardowe polecenie test:unit zachowując istniejące testy jednostkowe.\nPopraw kompatybilność z modułem sprawdzającym repozytorium ioBroker.",
+        "uk": "Використовуйте офіційні дії ioBroker GitHub для перевірки та тестування адаптера.\nДодайте стандартну команду test:unit, зберігаючи існуючі одиничні тести.\nПокращення сумісності з перевіркою сховища IObroker.",
+        "zh-cn": "使用官方 IOBroker GitHub 操作进行适配器检查和测试。\n添加标准 test: unit 命令，同时保留现有的单元测试。\n提高与 IOBroker 存储库检查器的兼容性。"
+      },
       "0.10.115": {
         "en": "Fix cloud log retrieval failures when Ecovacs returns HTTP 502.\nLimit MQTT shutdown time to prevent the adapter from hanging during shutdown.\nManage vendor timers through the ioBroker adapter for reliable cleanup.\nImprove cloud session timer integration.\nUpdate GitHub Actions concurrency and ioBroker license metadata.",
         "de": "Behebung von Cloud-Logs, wenn Ecovacs HTTP 502 zurückgibt.\nBegrenzen Sie die MQTT-Zeit, damit der Adapter nicht hängen bleibt.\nZuverlässige Verwaltung von Lieferantentimern über den ioBroker-Adapter.\nVerbessern Sie den Cloud-Sitzungstimer.\nAktualisiere GitHub Actions und ioBroker-Lizenzmetadaten.",

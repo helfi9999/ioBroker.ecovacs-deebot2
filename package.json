@@ -1,6 +1,6 @@
 {
   "name": "iobroker.ecovacs-deebot2",
-  "version": "0.10.115",
+  "version": "0.10.116",
   "description": "Multi-robot Ecovacs adapter for ioBroker",
   "main": "build/src/main.js",
   "type": "commonjs",

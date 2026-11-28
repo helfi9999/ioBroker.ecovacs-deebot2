@@ -27,3 +27,8 @@
 - Project owner subsequently confirmed custom-area operation and history appear to work in practice.
 
 Earlier development versions introduced multi-robot control, map rendering, room and custom-area controls, multi-floor display and cloud-session recovery.
+## 0.10.111
+
+- Encrypt session tokens before writing the instance object so controller decryption preserves the original token on restart.
+- Clarify that session initialization alone does not confirm device access.
+- For an affected existing installation, clear the cached session and re-enter the account password in Admin. This candidate still requires a real cloud login test.

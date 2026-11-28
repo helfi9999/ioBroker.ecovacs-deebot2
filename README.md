@@ -69,7 +69,7 @@ npm run pack:adapter
 See [publication preparation](docs/PUBLISHING.md) for the remaining release requirements.
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.10.116 (2026-11-28)
 
 - Use official ioBroker GitHub Actions for adapter checks and tests.
 - Add the standard test:unit command while preserving existing unit tests.
@@ -104,12 +104,6 @@ See [publication preparation](docs/PUBLISHING.md) for the remaining release requ
 - Improve session handling and error recovery.
 - Add connection readiness and timeout tests.
 - Verify connectivity and status updates with Luna and Sky.
-
-### 0.10.111
-
-- Encrypt session tokens before writing the instance object so controller decryption preserves the original token on restart.
-- Clarify that session initialization alone does not confirm device access.
-- For an affected existing installation, clear the cached session and re-enter the account password in Admin. This candidate still requires a real cloud login test.
 
 Earlier releases are documented in [CHANGELOG_OLD.md](CHANGELOG_OLD.md).
 
