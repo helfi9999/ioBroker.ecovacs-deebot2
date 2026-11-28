@@ -111,6 +111,8 @@ See [publication preparation](docs/PUBLISHING.md) for the remaining release requ
 - Clarify that session initialization alone does not confirm device access.
 - For an affected existing installation, clear the cached session and re-enter the account password in Admin. This candidate still requires a real cloud login test.
 
+Earlier releases are documented in [CHANGELOG_OLD.md](CHANGELOG_OLD.md).
+
 ## Dependency security
 
 See [dependency security checks](docs/DEPENDENCY_SECURITY.md) for the tested
