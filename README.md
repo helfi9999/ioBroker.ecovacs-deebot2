@@ -69,6 +69,12 @@ npm run pack:adapter
 See [publication preparation](docs/PUBLISHING.md) for the remaining release requirements.
 
 ## Changelog
+### **WORK IN PROGRESS**
+
+- Use official ioBroker GitHub Actions for adapter checks and tests.
+- Add the standard test:unit command while preserving existing unit tests.
+- Improve compatibility with the ioBroker repository checker.
+
 ### 0.10.115 (2026-11-27)
 
 - Fix cloud log retrieval failures when Ecovacs returns HTTP 502.
